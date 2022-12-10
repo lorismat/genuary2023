@@ -1,12 +1,13 @@
 export default function (small) {
   const smallCanvas = {
-    width: "500px",
-    height: "500px",
+    width: `${small}px`,
+    height: `${small}px`,
     position: "absolute",
     zIndex: "-10",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%,-50%)"
+    transform: "translate(-50%,-50%)",
+    border: "1px solid black"
   };
   const largeCanvas = {
     position: "absolute",
@@ -15,9 +16,9 @@ export default function (small) {
     left: "0",
   };
   const objStyle = {
-    style: small == "true" ? smallCanvas : largeCanvas,
-    width: small == "true" ? 500 : window.innerWidth,
-    height: small == "true" ? 500 : window.innerHeight, 
+    style: small != undefined ? smallCanvas : largeCanvas,
+    width: small != undefined ? small : window.innerWidth,
+    height: small != undefined ? small : window.innerHeight, 
   };
 
   return objStyle

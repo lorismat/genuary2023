@@ -1,22 +1,35 @@
 <template>
   <div class="container"> 
     <div class="sub-container">
-      <div class="text-left">
+      <div class="svg-title text-left">
         <SVGTitle 
           width=""
           height=""
         />
       </div>
+      <!-- 
+        <div class="svg-line text-left">
+        <SVGLine 
+          width=""
+          height=""
+        />
+      </div>
+      -->
+      
       <p>
-        <a class="secondary" href="https://genuary.art/" target="_blank">Genuary</a> is challenge where participants
+        <a class="secondary hover-remove border-b" href="https://genuary.art/" target="_blank">Genuary</a> is a challenge where participants
         submit entries made with generative code every day of January. Each day matches with 
-        <a class="secondary" href="https://genuary.art/prompts" target="_blank">a specific prompt</a>. 
-        <br><br>
-        <span class="primary border-b">Below are my submissions.</span>
+        <a class="secondary hover-remove border-b" href="https://genuary.art/prompts" target="_blank">a specific prompt</a>. <br>
+        All my prompts are made with <span class="gray">Three.js</span> and/or <span class="gray">glsl</span> and are 
+        <a class="secondary hover-remove border-b" href="https://github.com/lorismat/genuary2023" target="_blank">open-source</a>. 
       </p> 
+
+      <div class="text-left primary py-2">
+        @lorismat_
+      </div>
       <div class="grid">
-        <div class="grid-item" v-for="p in projects">
-          <a :href="p.url">
+        <div  class="grid-item" v-for="p in projects">
+          <a v-if="(p.id<=4)" :href="p.url">
             <img :src="p.img" :alt="p.url">
             <span class="pic-title">{{ p.title }}</span>
           </a>
@@ -28,13 +41,15 @@
 
 <script setup>
 import SVGTitle from '@/assets/svg/title.svg';
+import SVGLine from '@/assets/svg/line.svg';
+
 
 const projects = Array(31).fill().map((_, i) => {
   return {
     id:i+1,
     url:`/${i+1}`,
     img:`/cover/${i+1}.jpg`,
-    title:`#${i+1}.23`
+    title:`#${i+1}`
   }
 })
 </script>
@@ -52,6 +67,7 @@ p {
   margin: 10px 0;
   padding:10px 0;
   text-align: left;
+  line-height: 1.6;
 }
 .grid {
   display:grid;
@@ -70,8 +86,11 @@ img {
 }
 
 svg {
+  overflow: visible;
+}
+.svg-title {
   max-width: 400px;
-  margin: 20px 0;
+  margin: 20px 0 5px 0px;
 }
 
 .container {
@@ -95,6 +114,13 @@ svg {
   font-size: 1.2rem;
   font-family: monospace;
   letter-spacing: -1px;
+}
+
+.svg-line {
+  //position: absolute;
+  //top:10%;
+  width:100%;
+  margin:0;
 }
 
 @media screen and (max-width: 992px) {

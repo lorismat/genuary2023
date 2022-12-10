@@ -14,22 +14,44 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import vertexShader from '@/assets/glsl/1/shader.vert';
 import fragmentShader from '@/assets/glsl/1/shader.frag';
 
+// app config
+const appConfig = useAppConfig();
+const colors = appConfig.colors;
+
 let stats;
 
 // record purposes
-let capturer, clock;
+let capturer;
 let recordingStop = 0;
-const capture = true;
+let clock;
+let delta = 0;
 
-let canvas, scene, renderer, camera, cube;
-let materialCube;
+let canvas, scene, renderer, camera;
+let mesh, matrix;
 
-// dev vs prod, displaying stats accordingly
-const dev = true;
+// objects on one row
+const amount = 30;
+const offset = ( amount - 1 ) / 2;
+const count = Math.pow( amount, 2 );
 
-// wheter the canvas should be 500x500 or fullWidth/fullHeight
+// factor
+const step = 0.002;
+
+// amplitudes
+const amplitudes = [];
+const amplitudeMin = 50; // min amplitude
+const amplitudeRandomness = 10; // extra amplitude: random from 0 to 10
+
+// init Z positions are randomised
+const incs = [];
+
+// dev vs prod, displaying stats/controls/recording accordingly
+const dev = false;
+const capture = false;
+
+// canvas sizes and record properties
 const props = defineProps({
-  small: String,
+  small: Number,
   record: String
 })
 
@@ -51,44 +73,65 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
+  renderer.setClearColor(colors.white);
 
-  const geometryCube = new THREE.BoxGeometry(1,1,1);
-
-  materialCube = new THREE.ShaderMaterial({
+  // instancing cube
+  const geometry = new THREE.BoxGeometry(1,1,1);
+	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
-    uniforms: {
-      time: { value: 0 },
-    }
   })
 
-  cube = new THREE.Mesh(geometryCube, materialCube);
-  scene.add(cube);
+  mesh = new THREE.InstancedMesh( geometry, material, count );
+	
 
-  camera.position.set(0,0,5);
+  matrix = new THREE.Matrix4();
+
+  // counter for the grid index
+  let i = 0;
+  for ( let x = 0; x < amount; x ++ ) {
+    for ( let y = 0; y < amount; y ++ ) {
+      // random increment used to map the z coordinates
+      const inc = Math.random();
+      // amplitude
+      const a = amplitudeMin/2 + Math.random() * amplitudeRandomness;
+      // define a custom amplitude for each cube
+      amplitudes.push(a)
+      // define a custom init position
+      incs.push(inc);
+      
+      matrix.setPosition( 
+        offset - x, 
+        offset - y, 
+        THREE.MathUtils.mapLinear(
+          inc, 
+          0, 
+          1, 
+          a, -a
+        )
+      );
+      mesh.setMatrixAt( i, matrix );
+      i ++;
+    }
+  }
+  mesh.geometry.setAttribute( 'amplitude', new THREE.Float32BufferAttribute( amplitudes, 1 ) );
+  mesh.geometry.setAttribute( 'inc', new THREE.Float32BufferAttribute( incs, 1 ) );
+  scene.add( mesh );
+
+  camera.position.set(0,0,10);
   camera.lookAt( scene.position );
-
-  const controls = new OrbitControls( camera, renderer.domElement );
 
   stats = new Stats();
   if (dev) {
+    const controls = new OrbitControls( camera, renderer.domElement );
     const domContainer = document.body.appendChild( stats.dom );
     domContainer.style.top = "";
     domContainer.style.bottom = "0";
   }
 
-  // recording on mount
+  // RECORDING SET UP
   if (dev && capture) {
-    capturer = new CCapture({
-      framerate: 30,
-      name: `canvas-${Math.random().toFixed(3)}`,
-      startTime: 1,
-      motionBlurFrames: 1,
-      format: props.record,
-      workersPath: '/libs/'
-    });
-    capturer.start();
-    clock = new THREE.Clock();
+    capturer = compInitCapture(capturer, props.record, clock);
   }
   
 }
@@ -96,24 +139,36 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
 
-  const time = - performance.now() * 0.0005;
-  materialCube.uniforms.time.value = time;
-
   renderer.render(scene, camera);
   stats.update();
 
-  // recording on mount for a periodic cycle
+  delta += step;
+
+  let i = 0;
+  for ( let x = 0; x < amount; x ++ ) {
+    for ( let y = 0; y < amount; y ++ ) {
+      mesh.geometry.attributes.inc.array[i] += step;
+      matrix.setPosition( 
+        offset - x, 
+        offset - y, 
+        THREE.MathUtils.mapLinear(
+          mesh.geometry.attributes.inc.array[i] % 1, 
+          0, 
+          1, 
+          mesh.geometry.attributes.amplitude.array[i], -mesh.geometry.attributes.amplitude.array[i]
+        ) 
+      );
+      mesh.setMatrixAt( i, matrix );
+      i ++;
+    } 
+  }
+  mesh.instanceMatrix.needsUpdate = true;
+
+  // RECORDING CYCLE
   if (dev && capture) {
     if (recordingStop < 1) {
-      const delta = clock.getElapsedTime();
-      capturer.capture(canvas);
-      // one cycle output goes from 0 to 2*PI
-      if ( delta > 2*Math.PI ) {
-        capturer.stop();
-        capturer.save();
-        recordingStop++;
-      }
-    }
+      recordingStop = compRecordCapture(capturer, canvas, recordingStop, delta, 1);
+    } 
   }
 
 }

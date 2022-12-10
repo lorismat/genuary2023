@@ -1,11 +1,12 @@
 <template>
   <div>
-    <!-- Markup shared across all pages, ex: NavBar -->
-    <NuxtPage />
-    <TheFooter />
+    <NuxtLayout>
+      <!-- Markup shared across all pages, ex: NavBar -->
+      <NuxtPage />
+      <TheFooter />
+    </NuxtLayout>
   </div>
 </template>
-
 
 <style lang="scss">
 @font-face {
@@ -32,39 +33,59 @@ html {
 }
 
 body {
-  background-color: $black;
-  color: $white;
   font-size: 16px;
   font-weight: 300;
   padding:0 2px;
 }
 
 a {
-  color: $white;
   text-decoration: none;
 }
 
-a:hover {
-  border-bottom: 1px solid;
-}
-
 button {
-  cursor:pointer;
-}
-
-.primary {
-  color: $primary;
-}
-
-.secondary {
-  color:$secondary;
-}
-
-.border-b {
-  border-bottom: 1px solid $primary;
+  padding: 4px 8px;
+  font-size: 12px;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .text-left {
   text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.hoverline:hover {
+  border-bottom: 1px solid;
+}
+
+.hover-remove:hover {
+  border-bottom: 0px solid;
+}
+
+.source-link {
+  font-size:12px;
+  font-weight: 300;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.gray {
+  color: $gray;
+}
+
+.py-2 {
+  padding: 8px 0px;
 }
 </style>

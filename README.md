@@ -1,42 +1,12 @@
-# Nuxt 3 Minimal Starter
+# Genuary 2023
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[Live Website](https://lorismat-genuary2023.vercel.app/)  
 
-## Setup
 
-Make sure to install the dependencies:
+[Genuary]() is a challenge where participants submit entries made with generative code every day of January. Each day matches with [a specific prompt]().
+All my prompts are made with Three.js and/or glsl and are available in this repository.
 
-```bash
-# yarn
-yarn install
+## About the code
 
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The website is a `Nuxt` application. All prompts are `vue` components using `Three.js` accessible in `components/Canvas/CanvasX.vue`.  
+Some of the prompts run shaders, accessible in `assets/glsl/X`, `X` being the prompt day. 

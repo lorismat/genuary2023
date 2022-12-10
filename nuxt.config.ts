@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
+      title: "@lorismat_ | GENUARY 2023", 
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
       ],

@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeaderComponent 
-      title="02. Name"
-      subtitle="Prompt: Made in 10 minutes"
+      title="#2 Made in 10 minutes"
+      subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/.../components/Canvas/Canvas${Number($route.name)}.vue`"
     />
     <Entries
@@ -11,9 +11,14 @@
     />
     <client-only>
       <CanvasCanvas2 
-        small="false"
         record="png"
       />
     </client-only>
   </div>
 </template>
+
+<script>
+definePageMeta({
+  layout: "dark",
+});
+</script>

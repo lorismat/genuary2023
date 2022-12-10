@@ -1,18 +1,24 @@
 <template>
   <div>
     <HeaderComponent 
-      title="01. Name"
-      subtitle="Prompt: Perfect loop / Infinite loop / endless GIFs"
-      :sourceCode="`https://github.com/lorismat/genuary2023/.../components/Canvas/Canvas${Number($route.name)}.vue`"
+      title="#1 Perfect loop / Infinite loop"
+      subtitle="position.z = mapLinear(fract(increment), 0, 1, min, max)"
+      :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
     <Entries
       :next="`/${Number($route.name) + 1}`"
     />
     <client-only>
       <CanvasCanvas1 
-        small="true"
+        small=550
         record="gif"
       />
     </client-only>
   </div>
 </template>
+
+<script>
+definePageMeta({
+  layout: "light",
+});
+</script>

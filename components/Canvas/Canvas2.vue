@@ -11,25 +11,32 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/1/shader.vert';
-import fragmentShader from '@/assets/glsl/1/shader.frag';
+import vertexShader from '@/assets/glsl/2/shader.vert';
+import fragmentShader from '@/assets/glsl/2/shader.frag';
+
+// dev vs prod, displaying stats/controls/recording accordingly
+const dev = true;
+const capture = false;
+
+// app config
+const appConfig = useAppConfig();
+const colors = appConfig.colors;
 
 let stats;
 
 // record purposes
-let capturer, clock;
+let capturer;
 let recordingStop = 0;
-const capture = true;
+let clock;
+let delta = 0;
 
-let canvas, scene, renderer, camera, cube;
-let materialCube;
+let canvas, scene, renderer, camera;
+// extras
+let mesh;
 
-// dev vs prod, displaying stats accordingly
-const dev = true;
-
-// wheter the canvas should be 500x500 or fullWidth/fullHeight
+// canvas sizes and record properties
 const props = defineProps({
-  small: String,
+  small: Number,
   record: String
 })
 
@@ -51,71 +58,60 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
+  renderer.setClearColor(colors.gray);
 
-  const geometryCube = new THREE.BoxGeometry(1,1,1);
-
-  materialCube = new THREE.ShaderMaterial({
+  // shaders setup
+  const uniforms = {
+    u_time: { value: 0}
+  }
+  // instancing cube
+  const geometry = new THREE.BoxGeometry(1,1,1);
+	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
-    uniforms: {
-      time: { value: 0 },
-    }
+    uniforms: uniforms
   })
 
-  cube = new THREE.Mesh(geometryCube, materialCube);
-  scene.add(cube);
+  mesh = new THREE.Mesh( geometry, material );
+  scene.add( mesh );
 
-  camera.position.set(0,0,5);
+  camera.position.set(0,0,10);
   camera.lookAt( scene.position );
 
-  const controls = new OrbitControls( camera, renderer.domElement );
-
+  // STATS AND CONTROLS
   stats = new Stats();
   if (dev) {
+    const controls = new OrbitControls( camera, renderer.domElement );
     const domContainer = document.body.appendChild( stats.dom );
     domContainer.style.top = "";
     domContainer.style.bottom = "0";
   }
 
-  // recording on mount
+  // RECORDING SET UP
   if (dev && capture) {
-    capturer = new CCapture({
-      framerate: 30,
-      name: `canvas-${Math.random().toFixed(3)}`,
-      startTime: 1,
-      motionBlurFrames: 1,
-      format: props.record,
-      workersPath: '/libs/'
-    });
-    capturer.start();
-    clock = new THREE.Clock();
+    capturer = compInitCapture(capturer, props.record, clock);
   }
-  
 }
 
 function animate() {
   requestAnimationFrame(animate);
 
   const time = - performance.now() * 0.0005;
-  materialCube.uniforms.time.value = time;
-
   renderer.render(scene, camera);
   stats.update();
 
-  // recording on mount for a periodic cycle
+  // rendering actions
+  mesh.material.uniforms.u_time.value = time;
+  mesh.rotation.z += 0.01;
+  mesh.rotation.x += 0.01;
+  
+  // RECORDING CYCLE
   if (dev && capture) {
+    delta += 0.1;
     if (recordingStop < 1) {
-      const delta = clock.getElapsedTime();
-      capturer.capture(canvas);
-      // one cycle output goes from 0 to 2*PI
-      if ( delta > 2*Math.PI ) {
-        capturer.stop();
-        capturer.save();
-        recordingStop++;
-      }
-    }
+      recordingStop = compRecordCapture(capturer, canvas, recordingStop, delta, 1);
+    } 
   }
-
 }
 
 function onWindowResize() {

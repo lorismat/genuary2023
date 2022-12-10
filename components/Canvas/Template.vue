@@ -1,129 +1,138 @@
 <template>
-  <canvas id="canvas"></canvas>
+  <canvas 
+    :style="resizeSmall.style"
+    id="canvas"
+  >
+  </canvas>
 </template>
 
-<script>
+<script setup>
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
+import vertexShader from '@/assets/glsl/1/shader.vert';
+import fragmentShader from '@/assets/glsl/1/shader.frag';
+
+// app config
+const appConfig = useAppConfig();
+const colors = appConfig.colors;
+
 let stats;
-let scene, renderer, camera, cube;
+
+// record purposes
+let capturer, clock;
+let recordingStop = 0;
+const capture = false;
+
+let canvas, scene, renderer, camera, cube;
 let materialCube;
 
-export default {
-  methods: {
+// dev vs prod, displaying stats accordingly
+const dev = true;
 
-    init() {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(
-        70,
-        window.innerWidth / window.innerHeight,
-        1,
-        3000
-      );
+// wheter the canvas should be 500x500 or fullWidth/fullHeight
+const props = defineProps({
+  small: String,
+  record: String
+})
 
-      let canvas = document.getElementById("canvas");
-      renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
-      renderer.setPixelRatio( window.devicePixelRatio );
-      renderer.setSize(window.innerWidth, window.innerHeight);
+// resizing canvas accordingly with the composable function compResize
+const resizeSmall = computed(() => {
+  return compResize(props.small);
+})
 
-      // cube
-      const geometryCube = new THREE.BoxGeometry(1,1,1);
+function init() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(
+    70,
+    resizeSmall._value.width / resizeSmall._value.height,
+    1,
+    3000
+  );
 
-      const vertexShader = `
-        varying vec2 vUv;
-        void main () {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `;
+  canvas = document.getElementById("canvas");
+  renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
 
-      const fragmentShader = `
-        varying vec2 vUv;
-        uniform float time;
-        void main () {
-          gl_FragColor = vec4(vec3(vUv.x, abs(sin(time)), 1.0), 1.0);
-        }
-      `;
+  renderer.setClearColor(colors.white);
 
-      materialCube = new THREE.ShaderMaterial({
-        vertexShader,
-        fragmentShader,
-        uniforms: {
-          time: { value: 0 },
-        }
-      })
+  const geometryCube = new THREE.BoxGeometry(1,1,1);
 
-      cube = new THREE.Mesh(geometryCube, materialCube);
-      scene.add(cube);
-
-      // camera init position
-      camera.position.set(0,0,5);
-      camera.lookAt( scene.position );
-
-      // light
-      const lightAmbient = new THREE.AmbientLight(0xffffff, 10);
-      const controls = new OrbitControls( camera, renderer.domElement );
-
-      // STATS
-      stats = new Stats();
-      document.body.appendChild( stats.dom );
-
-      // GUI
-      const gui = new GUI();
-
-      const effectController = {
-        cubeSizeX: 1,
-        cubeSizeY: 1,
-        cubeSizeZ: 1,
-        wireframe: false
-      };
-
-      const matChanger = function () {
-        cube.scale.x = effectController.cubeSizeX;
-        cube.scale.y = effectController.cubeSizeY;
-        cube.scale.z = effectController.cubeSizeZ;
-        cube.material.wireframe = effectController.wireframe;
-      };
-
-      gui.add( effectController, "cubeSizeX", 0, 5, 0.1 ).onChange( matChanger );
-      gui.add( effectController, "cubeSizeY", 0, 5, 0.1 ).onChange( matChanger );
-      gui.add( effectController, "cubeSizeZ", 0, 5, 0.1 ).onChange( matChanger );
-      gui.add( effectController, "wireframe").onChange( matChanger );
-
-      gui.close();
-      matChanger();
-
-    },
-
-    animate() {
-      requestAnimationFrame(this.animate);
-
-      const time = - performance.now() * 0.0005;
-      materialCube.uniforms.time.value = time;
-      
-      cube.rotation.x = time;
-      cube.rotation.y = time;
-
-      renderer.render(scene, camera);
-      stats.update();
-    },
-
-    onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight ;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+  materialCube = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: {
+      time: { value: 0 },
     }
+  })
 
-  },
-  created() {
-    window.addEventListener("resize", this.onWindowResize);
-  },
-  mounted() {
-    this.init();
-    this.animate();
+  cube = new THREE.Mesh(geometryCube, materialCube);
+  scene.add(cube);
+
+  camera.position.set(0,0,5);
+  camera.lookAt( scene.position );
+
+  const controls = new OrbitControls( camera, renderer.domElement );
+
+  stats = new Stats();
+  if (dev) {
+    const domContainer = document.body.appendChild( stats.dom );
+    domContainer.style.top = "";
+    domContainer.style.bottom = "0";
   }
+
+  // recording on mount
+  if (dev && capture) {
+    capturer = new CCapture({
+      framerate: 30,
+      name: `canvas-${Math.random().toFixed(3)}`,
+      startTime: 1,
+      motionBlurFrames: 1,
+      format: props.record,
+      workersPath: '/libs/'
+    });
+    capturer.start();
+    clock = new THREE.Clock();
+  }
+  
 }
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  const time = - performance.now() * 0.0005;
+  materialCube.uniforms.time.value = time;
+
+  renderer.render(scene, camera);
+  stats.update();
+
+  // recording on mount for a periodic cycle
+  if (dev && capture) {
+    if (recordingStop < 1) {
+      const delta = clock.getElapsedTime();
+      capturer.capture(canvas);
+      // one cycle output goes from 0 to 2*PI
+      if ( delta > 2*Math.PI ) {
+        capturer.stop();
+        capturer.save();
+        recordingStop++;
+      }
+    }
+  }
+
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight ;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+onMounted(() => {
+  window.addEventListener("resize", onWindowResize);
+  init();
+  animate();
+})
 </script>

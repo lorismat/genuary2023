@@ -20,6 +20,18 @@
   <defs
      id="defs2">
     <linearGradient
+       id="linearGradient852"
+       inkscape:collect="always">
+      <stop
+         id="stop848"
+         offset="0"
+         style="stop-color:#13dcf2;stop-opacity:1" />
+      <stop
+         id="stop850"
+         offset="1"
+         style="stop-color:#c729f2;stop-opacity:0.95734596" />
+    </linearGradient>
+    <linearGradient
        inkscape:collect="always"
        id="linearGradient826-7">
       <stop
@@ -40,6 +52,16 @@
        x2="183.49417"
        y2="97.735703"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient852"
+       id="linearGradient836"
+       x1="32.455441"
+       y1="97.735703"
+       x2="198.61322"
+       y2="97.735703"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-49.293468,42.801672)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -48,9 +70,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="117.51712"
-     inkscape:cy="43.140972"
+     inkscape:zoom="0.7"
+     inkscape:cx="346.83329"
+     inkscape:cy="57.921737"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -59,13 +81,10 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1440"
-     inkscape:window-height="855"
+     inkscape:window-height="856"
      inkscape:window-x="0"
-     inkscape:window-y="1"
-     inkscape:window-maximized="1"
-     objecttolerance="1"
-     gridtolerance="1"
-     guidetolerance="1" />
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -74,7 +93,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -85,15 +104,15 @@
      transform="translate(16.838026,-131.94394)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.9250164px;line-height:1.25;font-family:sans-serif;letter-spacing:-1.20588958px;word-spacing:4.82355928px;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.26458333;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.94117647"
-       x="-17.199299"
-       y="147.99742"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:-1.28587496px;word-spacing:5.1435008px;fill:none;fill-opacity:1;stroke:url(#linearGradient836);stroke-width:0.5291667;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="-17.675873"
+       y="148.63474"
        id="text12"><tspan
          sodipodi:role="line"
          id="tspan10"
-         x="-17.199299"
-         y="147.99742"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:21.17337036px;font-family:Oxygen;-inkscape-font-specification:'Oxygen Bold';letter-spacing:-0.009925px;word-spacing:5.51334715px;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.26458333;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.94117647"
+         x="-17.675873"
+         y="148.63474"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.57777786px;font-family:Oxygen;-inkscape-font-specification:'Oxygen Bold';letter-spacing:-0.01058331px;word-spacing:5.87904167px;fill:none;fill-opacity:1;stroke:url(#linearGradient836);stroke-width:0.5291667;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          dx="0 0 0 0 0 0 0 0 0 0 0">GENUARY 2023</tspan></text>
   </g>
 </svg>
