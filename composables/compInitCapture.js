@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
-export default function(capturer, format, clock) {
+export default function(capturer, format, clock, frameRate) {
   capturer = new CCapture({
-    framerate: 30,
+    framerate: frameRate,
     name: `canvas-${Math.random().toFixed(3)}`,
     startTime: 1,
     motionBlurFrames: 1,

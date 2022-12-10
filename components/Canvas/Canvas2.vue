@@ -15,7 +15,7 @@ import vertexShader from '@/assets/glsl/2/shader.vert';
 import fragmentShader from '@/assets/glsl/2/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // app config
@@ -29,6 +29,9 @@ let capturer;
 let recordingStop = 0;
 let clock;
 let delta = 0;
+const deltaStep = 0.05;
+const deltaStop = 2;
+const frameRate = 1;
 
 let canvas, scene, renderer, camera;
 // extras
@@ -62,10 +65,14 @@ function init() {
 
   // shaders setup
   const uniforms = {
-    u_time: { value: 0}
+    u_time: { value: 0 },
+    smoothFactor: { value: 0.001 },
+    lineNumber: { value: 10.0 },
+    lineThickness: { value: 0.1 },
+
   }
   // instancing cube
-  const geometry = new THREE.BoxGeometry(1,1,1);
+  const geometry = new THREE.PlaneGeometry(15,15);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -75,7 +82,7 @@ function init() {
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
 
-  camera.position.set(0,0,10);
+  camera.position.set(0,0,5.5);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS
@@ -89,7 +96,7 @@ function init() {
 
   // RECORDING SET UP
   if (dev && capture) {
-    capturer = compInitCapture(capturer, props.record, clock);
+    capturer = compInitCapture(capturer, props.record, clock, frameRate);
   }
 }
 
@@ -102,14 +109,12 @@ function animate() {
 
   // rendering actions
   mesh.material.uniforms.u_time.value = time;
-  mesh.rotation.z += 0.01;
-  mesh.rotation.x += 0.01;
   
   // RECORDING CYCLE
   if (dev && capture) {
-    delta += 0.1;
+    delta += deltaStep;
     if (recordingStop < 1) {
-      recordingStop = compRecordCapture(capturer, canvas, recordingStop, delta, 1);
+      recordingStop = compRecordCapture(capturer, canvas, recordingStop, delta, deltaStop);
     } 
   }
 }

@@ -7,14 +7,6 @@
           height=""
         />
       </div>
-      <!-- 
-        <div class="svg-line text-left">
-        <SVGLine 
-          width=""
-          height=""
-        />
-      </div>
-      -->
       
       <p>
         <a class="secondary hover-remove border-b" href="https://genuary.art/" target="_blank">Genuary</a> is a challenge where participants
@@ -29,7 +21,7 @@
       </div>
       <div class="grid">
         <div  class="grid-item" v-for="p in projects">
-          <a v-if="(p.id<=4)" :href="p.url">
+          <a v-if="(p.id<=1)" :href="p.url">
             <img :src="p.img" :alt="p.url">
             <span class="pic-title">{{ p.title }}</span>
           </a>
@@ -41,8 +33,6 @@
 
 <script setup>
 import SVGTitle from '@/assets/svg/title.svg';
-import SVGLine from '@/assets/svg/line.svg';
-
 
 const projects = Array(31).fill().map((_, i) => {
   return {

@@ -3,9 +3,6 @@ export default /* glsl */`
 
 varying vec2 vUv;
 uniform float u_time;
-uniform vec2 u_resolution;
-
-varying vec3 pos;
 
 void main () {
 
