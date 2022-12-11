@@ -21,7 +21,7 @@
       </div>
       <div class="grid">
         <div  class="grid-item" v-for="p in projects">
-          <a v-if="(p.id<=1)" :href="p.url">
+          <a v-if="(p.id <= day)" :href="p.url">
             <img :src="p.img" :alt="p.url">
             <span class="pic-title">{{ p.title }}</span>
           </a>
@@ -42,6 +42,8 @@ const projects = Array(31).fill().map((_, i) => {
     title:`#${i+1}`
   }
 })
+
+const day = useState('day');
 </script>
 
 <style lang="scss" scoped>

@@ -11,27 +11,27 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/2/shader.vert';
-import fragmentShader from '@/assets/glsl/2/shader.frag';
+import vertexShader from '@/assets/glsl/3/shader.vert';
+import fragmentShader from '@/assets/glsl/3/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = true;
 const capture = false;
-
-// record purposes
-let capturer;
-let recordingStop = 0;
-let clock;
-let delta = 0;
-const deltaStep = 0.5;
-const deltaStop = 2;
-const frameRate = 1;
 
 // app config
 const appConfig = useAppConfig();
 const colors = appConfig.colors;
 
 let stats;
+
+// record purposes
+let capturer;
+let recordingStop = 0;
+let clock;
+let delta = 0;
+const deltaStep = 0.05;
+const deltaStop = 2;
+const frameRate = 1;
 
 let canvas, scene, renderer, camera;
 // extras
@@ -61,14 +61,14 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(colors.gray);
+  renderer.setClearColor(colors.white);
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
   }
   // instancing cube
-  const geometry = new THREE.PlaneGeometry(15,15);
+  const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -113,12 +113,6 @@ function animate() {
       recordingStop = compRecordCapture(capturer, canvas, recordingStop, delta, deltaStop);
     } 
   }
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight ;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 onMounted(() => {

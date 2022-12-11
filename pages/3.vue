@@ -1,17 +1,19 @@
 <template>
   <div>
     <HeaderComponent 
-      :title="`#${$route.name} Perfect loop / Infinite loop`"
-      subtitle="position.z = mapLinear(fract(increment), 0, 1, min, max)"
+      title="#3 Glitch Art"
+      subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
+
     <Entries
+      :prev="`/${Number($route.name) - 1}`"
       :next="(Number($route.name) < day) ? `/${Number($route.name) + 1}` : undefined"
     />
+    
     <client-only>
-      <CanvasCanvas1 
-        small=600
-        record="gif"
+      <CanvasCanvas3
+        record="png"
       />
     </client-only>
   </div>

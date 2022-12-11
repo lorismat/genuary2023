@@ -119,15 +119,17 @@ function animate() {
   }
 }
 
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight ;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
 onMounted(() => {
-  window.addEventListener("resize", onWindowResize);
   init();
   animate();
+  window.addEventListener("resize", function() {
+    compOnWindowResize(camera, renderer, window);
+  });
+  const randBtn = document.getElementById('randomize');
+  if (randBtn != undefined) {
+    randBtn.onclick = function() { 
+      init();
+    };
+  }
 })
 </script>

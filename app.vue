@@ -8,6 +8,13 @@
   </div>
 </template>
 
+<script setup>
+import moment from 'moment';
+// const day = useState('day', () => moment().date());
+const day = useState('day', () => moment().date());
+</script>
+
+
 <style lang="scss">
 @font-face {
   font-family: "Oxygen";
@@ -47,9 +54,7 @@ button {
   font-size: 12px;
   background-color: transparent;
   cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  margin-right: 10px;
+  margin: 10px 10px 0 0;
 }
 
 .text-left {
