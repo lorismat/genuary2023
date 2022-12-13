@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#3 Glitch Art"
+      title="#6 Steal Like An Artist"
       subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />

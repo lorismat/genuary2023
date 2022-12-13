@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#3 Glitch Art"
-      subtitle=""
+      title="#16 Reflection of a reflection"
+      subtitle="Masking the mask"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -12,8 +12,9 @@
     />
     
     <client-only>
-      <CanvasTemplate
-        record="png"
+      <CanvasCanvas16
+        small=600
+        record="webm"
       />
     </client-only>
   </div>
@@ -21,7 +22,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "light",
+  layout: "dark",
 });
 
 const day = useState('day');

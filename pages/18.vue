@@ -1,18 +1,19 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#3 Glitch Art"
+      title="#18 Definitely not a grid"
       subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
     <Entries
+      
       :prev="`/${Number($route.name) - 1}`"
       :next="(Number($route.name) < day) ? `/${Number($route.name) + 1}` : undefined"
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas18
         record="png"
       />
     </client-only>

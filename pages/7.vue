@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#3 Glitch Art"
+      title="#7 Sample a color palette from your favorite movie/album cover"
       subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />

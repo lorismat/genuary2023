@@ -9,6 +9,7 @@ export default /* glsl */`
 
 varying vec2 vUv;
 uniform float u_time;
+uniform vec2 u_resolution;
 
 float random (vec2 st) {
   return fract(sin(dot(st.xy,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#3 Glitch Art"
+      title="#17 A grid inside a grid inside a grid"
       subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
@@ -12,7 +12,7 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas17
         record="png"
       />
     </client-only>

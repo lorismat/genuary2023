@@ -83,8 +83,6 @@ function init() {
   })
 
   mesh = new THREE.InstancedMesh( geometry, material, count );
-	
-
   matrix = new THREE.Matrix4();
 
   // counter for the grid index

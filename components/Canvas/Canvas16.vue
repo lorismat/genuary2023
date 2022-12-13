@@ -11,11 +11,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/template/shader.vert';
-import fragmentShader from '@/assets/glsl/template/shader.frag';
+import vertexShader from '@/assets/glsl/16/shader.vert';
+import fragmentShader from '@/assets/glsl/16/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -23,9 +23,9 @@ let capturer;
 let recordingStop = 0;
 let clock;
 let delta = 0;
-const deltaStep = 0.5;
-const deltaStop = 2;
-const frameRate = 1;
+const deltaStep = 1;
+const deltaStop = 300;
+const frameRate = 30;
 
 // app config
 const appConfig = useAppConfig();
@@ -61,14 +61,14 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(appColors.white);
+  renderer.setClearColor(appColors.black);
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
   }
   // instancing cube
-  const geometry = new THREE.PlaneGeometry(5,5);
+  const geometry = new THREE.PlaneGeometry(8,8);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -127,7 +127,5 @@ onMounted(() => {
       init();
     };
   }
-
-  console.log(renderer.info);
 })
 </script>

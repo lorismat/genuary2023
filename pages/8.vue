@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#3 Glitch Art"
+      title="#8 Signed Distance Functions"
       subtitle=""
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
