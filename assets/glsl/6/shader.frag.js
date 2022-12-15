@@ -3,9 +3,9 @@ export default /* glsl */`
 // created with thebookofshaders editor
 // commented are the lines used within the editor
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #ifdef GL_ES
+// precision mediump float;
+// #endif
 
 varying vec2 vUv;
 uniform vec2 u_resolution;
@@ -47,7 +47,11 @@ void main () {
   // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
-  vec3 color = vec3(st.y, abs(sin(u_time)), 0.5);
+  // vec3 color = vec3(st.x, st.y, st.x);
+  // vec3 color = vec3(st.x * sin(u_time * 4.) + 0.5);
+
+  vec3 color = vec3(1.);
+
   gl_FragColor = vec4(color, 1.0);
 }
 `;

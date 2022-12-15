@@ -6,12 +6,16 @@
       </button>
     </div>
     <div>
-      <button v-if="props.prev != undefined">
-        <a :href="prev">prev</a>
-      </button>
-      <button v-if="props.next != undefined">
-        <a :href="next">next</a>
-      </button> 
+      <a v-if="props.prev != undefined" :href="prev">
+        <button>
+          prev
+        </button>
+      </a>
+      <a v-if="props.next != undefined" :href="next">
+        <button>
+          next
+        </button>
+      </a>
     </div>
   </div>
 </template>

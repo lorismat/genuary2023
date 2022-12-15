@@ -3,13 +3,18 @@ export default /* glsl */`
 // created with thebookofshaders editor
 // commented are the lines used within the editor
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #ifdef GL_ES
+// precision mediump float;
+// #endif
 
 varying vec2 vUv;
 uniform vec2 u_resolution;
 uniform float u_time;
+
+uniform sampler2D texture1;
+
+varying vec3 newPosition;
+varying vec3 fPosition;
 
 // CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -41,13 +46,52 @@ float noise(vec2 st) {
                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
+float line(vec2 st, float pos) {
+  pos += noise(st*5. + u_time ) * 3.;
+  float t = abs(noise(st*1. + u_time/4.)) * 3.;
+  return step(pos, st.x) + 1. - step(pos - 2., st.x);
+}
+
 void main () {
 
   // vec2 st = gl_FragCoord.xy/u_resolution.xy;
   // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
-  vec3 color = vec3(st.y, abs(sin(u_time)), 0.5);
-  gl_FragColor = vec4(color, 1.0);
+  // vec3 color = vec3(0.2);
+  // gl_FragColor = vec4(color, 1.0);
+
+  vec3 color = texture2D(texture1, st).rgb;
+
+  // replace black by green
+  //
+
+  // color *= step(0.5, st.x);
+
+  /*
+  color = mix(
+    vec3(0.), 
+    color, 
+    line(st, 0.)
+  );
+  */
+
+    /*
+  color *= mix(
+    vec3(0.), 
+    color, 
+    line(st, 0.)
+  );
+  */
+
+
+  color.r + color.r + color.b < 0.8 ? color += vec3(.1, 0., 0.)
+  : color;
+  
+  float alpha = 1.;
+  alpha = 1. - abs(newPosition.y - fPosition.y) / 10.;
+  //abs(newPosition.y - fPosition.y) > 0.1 ? alpha = 0. : alpha = alpha;
+
+  gl_FragColor = vec4(color, alpha);
 }
 `;

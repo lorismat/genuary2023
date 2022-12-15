@@ -57,6 +57,8 @@ function init() {
     3000
   );
 
+  const seed = Math.random() * 1000;
+
   canvas = document.getElementById("canvas");
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
@@ -65,7 +67,7 @@ function init() {
 
   // shaders setup
   const uniforms = {
-    u_time: { value: 0 },
+    seed: { value:seed }
   }
   // instancing cube
   const geometry = new THREE.PlaneGeometry(5,5);
@@ -102,9 +104,6 @@ function animate() {
   const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
-
-  // rendering actions
-  mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE
   if (dev && capture) {

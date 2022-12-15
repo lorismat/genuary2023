@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#17 A grid inside a grid inside a grid"
-      subtitle=""
+      subtitle="Rounded"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -21,7 +21,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "light",
+  layout: "dark",
 });
 
 const day = useState('day');

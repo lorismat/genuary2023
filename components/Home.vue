@@ -38,7 +38,7 @@ const projects = Array(31).fill().map((_, i) => {
   return {
     id:i+1,
     url:`/${i+1}`,
-    img:`/cover/${i+1}.jpg`,
+    img:`/cover/${i+1}.png`,
     title:`#${i+1}`
   }
 })
@@ -75,6 +75,7 @@ p {
 img {
   max-width: 300px;
   max-height: 300px;
+  border: 1px solid #fff;
 }
 
 svg {

@@ -45,6 +45,9 @@ const amplitudeRandomness = 10; // extra amplitude: random from 0 to 10
 // init Z positions are randomised
 const incs = [];
 
+// position attribute for vertex shader
+const positions = [];
+
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;
 const capture = false;
@@ -80,6 +83,7 @@ function init() {
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
+    // transparent: true
   })
 
   mesh = new THREE.InstancedMesh( geometry, material, count );
@@ -98,7 +102,7 @@ function init() {
       // define a custom init position
       incs.push(inc);
       
-      matrix.setPosition( 
+      const position = new THREE.Vector3(
         offset - x, 
         offset - y, 
         THREE.MathUtils.mapLinear(
@@ -108,12 +112,16 @@ function init() {
           a, -a
         )
       );
+
+      matrix.setPosition(position.x, position.y, position.z);
       mesh.setMatrixAt( i, matrix );
       i ++;
     }
   }
   mesh.geometry.setAttribute( 'amplitude', new THREE.Float32BufferAttribute( amplitudes, 1 ) );
   mesh.geometry.setAttribute( 'inc', new THREE.Float32BufferAttribute( incs, 1 ) );
+
+
   scene.add( mesh );
 
   camera.position.set(0,0,10);
@@ -129,7 +137,7 @@ function init() {
 
   // RECORDING SET UP
   if (dev && capture) {
-    capturer = compInitCapture(capturer, props.record, clock);
+    capturer = compInitCapture(capturer, props.record, clock, 30);
   }
   
 }
@@ -146,7 +154,7 @@ function animate() {
   for ( let x = 0; x < amount; x ++ ) {
     for ( let y = 0; y < amount; y ++ ) {
       mesh.geometry.attributes.inc.array[i] += step;
-      matrix.setPosition( 
+      const position = new THREE.Vector3(
         offset - x, 
         offset - y, 
         THREE.MathUtils.mapLinear(
@@ -154,8 +162,9 @@ function animate() {
           0, 
           1, 
           mesh.geometry.attributes.amplitude.array[i], -mesh.geometry.attributes.amplitude.array[i]
-        ) 
+        )
       );
+      matrix.setPosition(position.x, position.y, position.z);
       mesh.setMatrixAt( i, matrix );
       i ++;
     } 

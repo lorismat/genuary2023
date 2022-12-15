@@ -1,14 +1,20 @@
 export default /* glsl */`
 
-// Created with http://editor.thebookofshaders.com/
-// Commented lines are the lines used within the editor
-// #ifdef GL_ES
-// precision mediump float;
-// #endif
+
+// created with thebookofshaders editor
+// commented are the lines used within the editor
+
+// direct inspiration for the eclipse effect: 
+// Light Circles by Deefunct
+// https://www.shadertoy.com/view/MlyGzW
+
+#ifdef GL_ES
+precision mediump float;
+#endif
 
 varying vec2 vUv;
-uniform float u_time;
 uniform vec2 u_resolution;
+uniform float u_time;
 
 // CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -39,38 +45,35 @@ float noise(vec2 st) {
                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
-void main () {
+void main() {
+    // circle in the center
+    vec2 st = 2.1*(2.0*gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+    
+    //vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    //st.x *= u_resolution.x/u_resolution.y;
+    
+    vec2 center = vec2(0., 0.);
+    
+    vec3 light_color = vec3(0.490,0.650,0.305);
+    vec3 light_color2 = vec3(0.013,0.265,0.650);
+    vec3 light_color3 = vec3(0.650,0.507,0.343);
+	  float light = 0.2 / distance(normalize(st), st);
+    vec3 color = light_color*light;
+    
+    color = mix(vec3(0.), color, 
+                smoothstep(1.1+noise(st*0.7 + u_time*0.2)*0.1, 1.15+noise(st*0.7 + u_time*0.2)*0.1, distance(vec2(center.x, center.y), st))
+               );
+    
+    color = mix(color, light_color2 * light * 200. * pow(distance(center, st),10.), 1. - 
+      smoothstep(0.6+noise(st*0.8 + u_time*0.1)*0.3, 0.65+noise(st*0.8 + u_time*0.1)*0.3,distance(center, st))
+    );
+    
+    color = mix(color, light_color3 * light * 100. * pow(distance(center, st),3.), 1. - 
+    smoothstep(0.3+noise(st*0.4 + u_time*0.3)*0.2, 0.35+noise(st*0.4 + u_time*0.3)*0.2,distance(center, st))
+    );
 
-    // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    // st.x *= u_resolution.x/u_resolution.y;
-    vec2 st = vUv;
-
-    vec3 color = vec3(1.);
-    
-    // fract
-    // mix
-    // multiply
-    // add
-    
-    // create one line
-    // create grid
-    // add a square changing on top
-    // create a mask made of 10 rectangle, offest
-    
-    float sclX = floor(st.x*10.) / 10.;
-    float sclY = floor(st.y*10.) / 10.;
-    
-    float lineX = step(sclX+0.01, st.x)  + 1. - step(sclX-0.01, st.x);
-    float lineY = step(sclY+0.01, st.y)  + 1. - step(sclY-0.01, st.y);
-    
-    color *= lineX;
-    color *= lineY;
-    
-    float shape = step(st.x, 0.5);
-    
-    color = mix(color, vec3(1.,0.,0.), shape);
-    
-    gl_FragColor = vec4(color, 1.0);
+        
+    gl_FragColor = vec4(color,1.0);
 }
 
 

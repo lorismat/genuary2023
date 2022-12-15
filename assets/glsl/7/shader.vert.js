@@ -1,15 +1,10 @@
 export default /* glsl */`
-
-// created with thebookofshaders editor
-// commented are the lines used within the editor
-
-#ifdef GL_ES
-precision mediump float;
-#endif
-
 varying vec2 vUv;
-uniform vec2 u_resolution;
+uniform sampler2D texture1;
 uniform float u_time;
+varying float vAmount;
+varying vec3 newPosition;
+varying vec3 fPosition;
 
 // CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -42,12 +37,37 @@ float noise(vec2 st) {
 }
 
 void main () {
+  vUv = uv;
 
-  // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  // st.x *= u_resolution.x/u_resolution.y;
-  vec2 st = vUv;
+  vec4 col = texture2D(texture1, uv);
+  newPosition = position + normal;
+  fPosition = position;
 
-  vec3 color = vec3(st.y, abs(sin(u_time)), 0.5);
-  gl_FragColor = vec4(color, 1.0);
+  newPosition.y += (col.r + col.g + col.b) * noise(vUv * 0.1 + u_time/2.);
+
+  /*
+  newPosition.y = col.r + col.g + col.b < 0.2 ? newPosition.y += noise(vec2(vUv.y)/20. + u_time) / 1.
+  : newPosition.y;
+  */
+
+
+  /*
+  newPosition.y = col.r + col.g + col.b < 0.4 ? newPosition.y += noise(vUv + u_time) / 10.
+  : newPosition.y;
+  */
+
+  
+  //newPosition.x = col.r + col.g + col.b < 0.4 ? newPosition.x += noise(vUv + u_time) / 1.
+  //: newPosition.x;
+  /*
+
+  newPosition.z = col.r + col.g + col.b < 0.4 ? newPosition.z += noise(vUv + u_time) / 10.
+  : newPosition.z;
+
+  newPosition.x -= noise(vUv + u_time) / 10.;
+  // newPosition.y -= noise(vUv + u_time) / 10.;
+  */
+
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }
 `;

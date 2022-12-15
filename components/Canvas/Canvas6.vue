@@ -10,9 +10,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 
-import vertexShader from '@/assets/glsl/17/shader.vert';
-import fragmentShader from '@/assets/glsl/17/shader.frag';
+import vertexShader from '@/assets/glsl/6/shader.vert';
+import fragmentShader from '@/assets/glsl/6/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;
@@ -34,7 +35,6 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
-// extras
 let mesh;
 
 // canvas sizes and record properties
@@ -61,25 +61,47 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(appColors.white);
+  renderer.setClearColor("#000");
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
-    u_resolution: { value: new THREE.Vector2(window.devicePixelRatio *resizeSmall._value.width, window.devicePixelRatio *resizeSmall._value.height)}
   }
   // instancing cube
-  const geometry = new THREE.PlaneGeometry(12,12);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
-    uniforms: uniforms
+    uniforms: uniforms,
+    side: THREE.DoubleSide
   })
 
-  mesh = new THREE.Mesh( geometry, material );
-  scene.add( mesh );
+  // svg loader
+  const url = '/svg/cenizas.svg';
+  
+  const loader = new SVGLoader();
+  loader.load( url, function ( data ) {
+    const paths = data.paths;
+    for ( let i = 0; i < paths.length; i ++ ) {
+      const path = paths[ i ];
+      const strokeColor = path.userData.style.stroke;
+      for ( let j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
+        const subPath = path.subPaths[ j ];
+        const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+        if ( geometry ) {
+          mesh = new THREE.Mesh( geometry, material );
+        }
+      }
+    }
+    scene.add( mesh );
+    mesh.position.x = -250;
+    mesh.position.y = 250;
 
-  camera.position.set(0,0,4);
+    mesh.rotation.z = Math.PI;
+    mesh.rotation.y = Math.PI;
+  })
+  
+
+  camera.position.set(0,0,500);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS
@@ -105,8 +127,9 @@ function animate() {
   stats.update();
 
   // rendering actions
-  mesh.material.uniforms.u_time.value = time;
-  
+  mesh != undefined ? mesh.material.uniforms.u_time.value = time: '';
+   
+
   // RECORDING CYCLE
   if (dev && capture) {
     delta += deltaStep;

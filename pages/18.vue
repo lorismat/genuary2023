@@ -14,6 +14,7 @@
     
     <client-only>
       <CanvasCanvas18
+      small="600"
         record="png"
       />
     </client-only>

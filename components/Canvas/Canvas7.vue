@@ -11,8 +11,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/17/shader.vert';
-import fragmentShader from '@/assets/glsl/17/shader.frag';
+import vertexShader from '@/assets/glsl/7/shader.vert';
+import fragmentShader from '@/assets/glsl/7/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;
@@ -66,10 +66,10 @@ function init() {
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
-    u_resolution: { value: new THREE.Vector2(window.devicePixelRatio *resizeSmall._value.width, window.devicePixelRatio *resizeSmall._value.height)}
+    texture1: { value: new THREE.TextureLoader().load( "/img/album_ts.png" ) }
   }
   // instancing cube
-  const geometry = new THREE.PlaneGeometry(12,12);
+  const geometry = new THREE.PlaneGeometry(3,3, 250, 250);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -79,7 +79,7 @@ function init() {
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
 
-  camera.position.set(0,0,4);
+  camera.position.set(0,0,5);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS

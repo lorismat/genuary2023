@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#6 Steal Like An Artist"
-      subtitle=""
+      subtitle="Distorted artwork from Nicolas Jaar's album Cenizas"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -12,7 +12,7 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas6
         record="png"
       />
     </client-only>
@@ -21,7 +21,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "light",
+  layout: "dark",
 });
 
 const day = useState('day');
