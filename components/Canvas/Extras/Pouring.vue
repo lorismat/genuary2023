@@ -11,27 +11,27 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/3/shader.vert';
-import fragmentShader from '@/assets/glsl/3/shader.frag';
+import vertexShader from '@/assets/glsl/extras/pouring.vert';
+import fragmentShader from '@/assets/glsl/extras/pouring.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = true;
-const capture = false;
-
-// app config
-const appConfig = useAppConfig();
-const colors = appConfig.colors;
-
-let stats;
+const capture = true;
 
 // record purposes
 let capturer;
 let recordingStop = 0;
 let clock;
 let delta = 0;
-const deltaStep = 0.05;
-const deltaStop = 2;
+const deltaStep = 0.5;
+const deltaStop = 1;
 const frameRate = 1;
+
+// app config
+const appConfig = useAppConfig();
+const appColors = appConfig.colors;
+
+let stats;
 
 let canvas, scene, renderer, camera;
 // extras
@@ -57,20 +57,18 @@ function init() {
     3000
   );
 
-  const seed = Math.random() * 1000;
-
   canvas = document.getElementById("canvas");
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(colors.white);
+  renderer.setClearColor(appColors.black);
 
   // shaders setup
   const uniforms = {
-    mainSeed: { value: seed }
+    u_time: { value: 0 },
   }
   // instancing cube
-  const geometry = new THREE.PlaneGeometry(5,5);
+  const geometry = new THREE.PlaneGeometry(8,8);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -104,6 +102,9 @@ function animate() {
   const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
+
+  // rendering actions
+  mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE
   if (dev && capture) {

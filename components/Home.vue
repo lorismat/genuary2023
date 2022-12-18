@@ -38,7 +38,7 @@ const projects = Array(31).fill().map((_, i) => {
   return {
     id:i+1,
     url:`/${i+1}`,
-    img:`/cover/${i+1}.png`,
+    img:`/cover/cov${i+1}.png`,
     title:`#${i+1}`
   }
 })
@@ -75,7 +75,7 @@ p {
 img {
   max-width: 300px;
   max-height: 300px;
-  border: 1px solid #fff;
+  // border: 1px solid #fff;
 }
 
 svg {
@@ -107,6 +107,8 @@ svg {
   font-size: 1.2rem;
   font-family: monospace;
   letter-spacing: -1px;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #fff;
 }
 
 .svg-line {

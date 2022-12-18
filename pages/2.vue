@@ -7,12 +7,14 @@
     />
     
     <Entries
+      generate="true"
       :prev="`/${Number($route.name) - 1}`"
       :next="(Number($route.name) < day) ? `/${Number($route.name) + 1}` : undefined"
     />
     
     <client-only>
       <CanvasCanvas2 
+
         record="png"
       />
     </client-only>

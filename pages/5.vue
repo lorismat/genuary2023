@@ -12,7 +12,8 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas5
+      small="500"
         record="png"
       />
     </client-only>

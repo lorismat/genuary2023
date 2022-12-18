@@ -10,7 +10,7 @@ precision mediump float;
 
 varying vec2 vUv;
 uniform vec2 u_resolution;
-uniform float seed;
+uniform float mainSeed;
 
 // CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -53,11 +53,11 @@ void main () {
   //vec2 st = gl_FragCoord.xy/u_resolution.xy;
   //st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
+    
+  st *= fract(st*2.);
 
-  //float seed = 67. * sin(u_time * 0.000001);
-    
-    
-    vec3 color = vec3(0.);
+  float seed = mainSeed; // attempts with dynamic seed at first    
+  vec3 color = vec3(0.);
     
   color = mix(color, vec3(random(vec2(seed)), random(vec2(seed+2.)), random(vec2(seed+1.))), 
               rect(st, 

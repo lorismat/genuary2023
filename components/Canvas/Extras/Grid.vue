@@ -15,7 +15,7 @@ import { SimplexNoise } from 'three/examples/jsm/math/SimplexNoise.js';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = true;
-const capture = false;
+const capture = true;
 
 // record purposes
 let capturer;
@@ -23,7 +23,7 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 2;
+const deltaStop = 1;
 const frameRate = 1;
 
 // app config
@@ -75,10 +75,18 @@ function init() {
   let bInc = 0;
   let noiseVal;
 
-  const lineNumber = 80;
-  const detail = 100; // number of points for a line
-  const detailFactor = 2; // x spread between each point
-  const lineSpacing = 2;
+  // noiseZ
+  const aZOff = 0.002;
+  const bZOff = 0.01;
+
+  let aZInc = 0; 
+  let bZInc = 0;
+  let noiseValZ;
+
+  const lineNumber = 10;
+  const detail = 800; // number of points for a line
+  const detailFactor = 0.8 / 4; // x spread between each point
+  const lineSpacing = 4;
   const spread = 4;
   let spreadInc = spread; 
 
@@ -93,8 +101,10 @@ function init() {
       bInc += bOff;
       noiseVal = noise.noise(aInc, bInc);
       curvePoints.push(
-        new THREE.Vector2(
-          j * detailFactor,  noiseVal * spreadInc * (THREE.MathUtils.mapLinear(j, -detail/2, detail/2, 0, spreadInc)) + (i * lineSpacing)
+        new THREE.Vector3(
+          j * detailFactor,  // x
+          noiseVal * spreadInc * (THREE.MathUtils.mapLinear(j, -detail/2, detail/2, 0, spreadInc)) + (i * lineSpacing), // y
+          10
         )
       );
       colors.push(0, 0, 0);
@@ -105,6 +115,18 @@ function init() {
     const points = curve.getPoints( detail );
     colors.push(0, 0, 0);
     idxInc++;
+    // noise Z
+    aZInc = 0;
+    bZInc = 0;
+    points.forEach((p, idx) => {
+      console.log(idx);
+      aZInc += aZOff;
+      bZInc += bZOff;
+      noiseValZ = noise.noise(aZInc, bZInc);
+      p.z = noiseValZ * 5;
+      return p;
+    });
+
     lines.push(points);
   }  
 
@@ -112,7 +134,7 @@ function init() {
     vertexColors: true 
   } );
   geometryH = new THREE.BufferGeometry().setFromPoints( lines.flat() );
-  console.log(geometryH);
+  console.log(geometryH)
   geometryH.setIndex(index);
   geometryH.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
   line = new THREE.LineSegments( geometryH, material );
@@ -168,7 +190,7 @@ function init() {
   scene.add( line );
   scene.add( line2 );
 
-  camera.position.set(0,0,200);
+  camera.position.set(0,0,100);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS

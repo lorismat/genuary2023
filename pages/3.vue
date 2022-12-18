@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#3 Glitch Art"
-      subtitle="Ugly glitches"
+      subtitle="Glitches"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 

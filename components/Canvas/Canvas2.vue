@@ -37,6 +37,7 @@ let canvas, scene, renderer, camera;
 // extras
 let mesh;
 
+
 // canvas sizes and record properties
 const props = defineProps({
   small: Number,
@@ -63,12 +64,16 @@ function init() {
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
   renderer.setClearColor(colors.gray);
 
+  const seed = Math.random()*1000;
+
+
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
     smoothFactor: { value: 0.001 },
     lineNumber: { value: 10.0 },
     lineThickness: { value: 0.1 },
+    seed: { value: seed }
 
   }
   // instancing cube
@@ -104,11 +109,15 @@ function animate() {
   requestAnimationFrame(animate);
 
   const time = - performance.now() * 0.0005;
-  renderer.render(scene, camera);
-  stats.update();
 
   // rendering actions
   mesh.material.uniforms.u_time.value = time;
+
+  
+  renderer.render(scene, camera);
+  stats.update();
+
+  
   
   // RECORDING CYCLE
   if (dev && capture) {

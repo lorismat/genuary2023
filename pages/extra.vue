@@ -11,7 +11,8 @@
     />
     
     <client-only>
-      <CanvasExtrasGrid
+      <CanvasExtrasPouring
+        small="750"
         record="png"
       />
     </client-only>

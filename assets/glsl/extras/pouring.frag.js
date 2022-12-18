@@ -1,5 +1,4 @@
 export default /* glsl */`
-
 // created with thebookofshaders editor
 // commented are the lines used within the editor
 
@@ -9,11 +8,7 @@ export default /* glsl */`
 
 varying vec2 vUv;
 uniform float u_time;
-
-uniform float smoothFactor;
-uniform float lineNumber;
-uniform float lineThickness;
-uniform float seed;
+uniform vec2 u_resolution;
 
 vec3 rgb2hsb( in vec3 c ){
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -67,17 +62,31 @@ float noise(vec2 st) {
                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
-vec3 modified (vec2 st, float position, float thickness, float sign, float noiseAmplitude) {
-  float t = seed + u_time * 0.4;
+vec3 modified (vec2 st, float nFreq, float nThick, vec3 colorLine) {
+  float t = u_time * 0.4;  
+  float noisyPos = noise(105. + t + st * nFreq) * 0.5;
+  float noisyInc = noise(vec2(st.x, st.y) * nFreq/12.) * 0.2;
 
-  float noisyPos = noise(t + st * noiseAmplitude) * noiseAmplitude * 2.;
-  noisyPos += noise(t + st * noiseAmplitude / 2.) * noiseAmplitude / 8.;
+  float position = 0.;
+  position += noisyPos * 90. * nThick;
+  position += noisyInc * 10. * nThick;
+
+  vec3 line = vec3(0.);
+  line += position;
   
-  position += noisyPos * sign;
+  line = fract(line) * 3.;
+  return mix(
+    // colorLine + fract(st.x*5.), 
+    colorLine - 1.,
+    vec3(0.9), 
+    line  
+    );
+}
 
-  vec3 line = vec3(smoothstep(1.- position - smoothFactor, 1.- position, st.y) + 
-                   1. - smoothstep(1. - position - thickness - smoothFactor, 1. - position - thickness,st.y));
-  return line;
+vec3 coloring (vec3 main, vec3 color) {
+  main = mix(color*main, main, 0.1);
+  main += color / 20.;
+  return main;
 }
 
 void main () {
@@ -86,31 +95,44 @@ void main () {
   // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
-  // h
-  float h = seed/1000.;
-  float hL = seed/1000.;
-  // s
-  float s = 0.68;
-  float sL = 1.;
-  // b
-  float b = 0.24;
-  float bL = 0.71;
-
-  // gb color
-  vec3 color = hsb2rgb(vec3(h + random(st) * 0.1, s, b));
-  // line color
-  vec3 colorLine = hsb2rgb(vec3(hL + random(st) * 0.1, sL, bL));
-
-  vec3 modifiedLine = modified(
-    st, // st
-    0.5, // position
-    lineThickness, // thickness
-    1., // sign
-    3. // noiseAmplitude
+  vec3 color = vec3(1.);
+    
+  vec3 lineB = modified(
+      st, // coordinates
+      4., // noise frequency
+      0.5, // noise thickness
+      vec3(0.) // line color
   );
 
-  color = mix(colorLine, color, modifiedLine);
+  vec3 lineF = modified(
+      st,
+      4.,
+      0.5,
+      vec3(0.)
+  );
+    
+  vec2 center = vec2(0.5);
+  float radius = 0.2;
+  float smoothing = 0.2;
+  // mask for full circle
+  float mask = smoothstep(radius, radius + smoothing, distance(center, st));
+
+  color = mix( coloring(lineB , 
+
+
+    vec3(st.y/3.,0.8,0.6)
+    
+    
+    ) - 0.5, 
+    coloring(lineF, 
+    
+    
+    vec3(1., st.x/10., st.x/2.)
+    
+    
+    ) -1.9, 
+    mask);
+            
   gl_FragColor = vec4(color, 1.0);
 }
-
 `;
