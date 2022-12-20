@@ -52,7 +52,6 @@ a {
 button {
   padding: 4px 8px;
   font-size: 12px;
-  background-color: transparent;
   cursor: pointer;
   margin: 10px 10px 0 0;
 }

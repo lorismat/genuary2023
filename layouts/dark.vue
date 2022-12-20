@@ -17,6 +17,7 @@ a {
 button {
   color: $white;
   border: 1px solid $white;
+  background-color: transparent;
 }
 
 .source-link {

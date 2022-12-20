@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#4 Intersections"
-      subtitle="4 lines fading in the center"
+      title="#12 Tesselation"
+      subtitle="Broken Tesselation"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -13,7 +13,7 @@
     />
     
     <client-only>
-      <CanvasCanvas4
+      <CanvasCanvas12
         record="png"
       />
     </client-only>
@@ -22,7 +22,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "light",
+  layout: "dark",
 });
 
 const day = useState('day');

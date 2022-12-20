@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#22 Shadows"
-      subtitle="Grainy Light"
+      title="#26 My Kid Could Have Done It"
+      subtitle="Paper plane and baloons"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -13,8 +13,7 @@
     />
     
     <client-only>
-      <CanvasCanvas22
-        generate="true"
+      <CanvasCanvas26
         record="png"
       />
     </client-only>
@@ -23,7 +22,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "dark",
+  layout: "light",
 });
 
 const day = useState('day');

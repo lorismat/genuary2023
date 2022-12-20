@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#22 Shadows"
-      subtitle="Grainy Light"
+      title="#29 Maximalism"
+      subtitle="Pop"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -13,8 +13,7 @@
     />
     
     <client-only>
-      <CanvasCanvas22
-        generate="true"
+      <CanvasCanvas29
         record="png"
       />
     </client-only>

@@ -82,7 +82,6 @@ function init() {
   loader.load(
     "models/monolit.glb",
     function ( gltf ) {
-      console.log(gltf);
       const _monoMesh = gltf.scene.getObjectByName( 'Cylinder' );
       monoGeometry = _monoMesh.geometry.clone();
 
@@ -103,7 +102,7 @@ function init() {
       scene.add( monoMesh );
 
       for (let i = 0; i<count; i++) {
-        dummy.position.set( -count/2 + i, Math.random() * count - count/2, Math.random() * 100 - count/2  );
+        dummy.position.set( -count/2 + i, 50 + Math.random() * count - count/2, Math.random() * 100 - count/2  );
 			  dummy.updateMatrix();
 			  monoMesh.setMatrixAt( i, dummy.matrix );
       }
@@ -111,12 +110,7 @@ function init() {
     },
   );
 
-  
-
-
-
-
-  camera.position.set(0,200,0);
+  camera.position.set(0,250,0);
   camera.lookAt( new THREE.Vector3(0, 0, 0) );
 
   // Lights
