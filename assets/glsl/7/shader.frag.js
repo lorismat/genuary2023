@@ -58,39 +58,18 @@ void main () {
   // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
-  // vec3 color = vec3(0.2);
-  // gl_FragColor = vec4(color, 1.0);
-
   vec3 color = texture2D(texture1, st).rgb;
+  
 
-  // replace black by green
-  //
-
-  // color *= step(0.5, st.x);
-
-  /*
-  color = mix(
-    vec3(0.), 
-    color, 
-    line(st, 0.)
-  );
-  */
-
-    /*
-  color *= mix(
-    vec3(0.), 
-    color, 
-    line(st, 0.)
-  );
-  */
-
-
-  color.r + color.r + color.b < 0.8 ? color += vec3(.1, 0., 0.)
+  
+  color.r + color.r + color.b < 1.5 ? color += vec3(.0, 0., 0.)
   : color;
   
   float alpha = 1.;
-  alpha = 1. - abs(newPosition.y - fPosition.y) / 10.;
-  //abs(newPosition.y - fPosition.y) > 0.1 ? alpha = 0. : alpha = alpha;
+  alpha = 1. - abs(newPosition.y - fPosition.y ) /4.;
+  alpha *= step(0., 1.7-newPosition.y );
+  alpha *= step(0., 1.7+newPosition.y );
+
 
   gl_FragColor = vec4(color, alpha);
 }

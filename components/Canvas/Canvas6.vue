@@ -77,7 +77,6 @@ function init() {
 
   // svg loader
   const url = '/svg/cenizas.svg';
-  
   const loader = new SVGLoader();
   loader.load( url, function ( data ) {
     const paths = data.paths;

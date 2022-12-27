@@ -1,4 +1,3 @@
-#define PI 3.14159265359
 
 float rect(vec2 st, float X, float Y, float W, float H) {
     float R = step(X, st.x) // x
@@ -50,7 +49,7 @@ mat2 rotate2d(float _angle){
 // move space from the center to the vec2(0.0)
 st -= vec2(0.5);
 // rotate the space
-st = rotate2d( sin(PI/6.)*PI ) * st;
+st = rotate2d( sin(PI/6.)* PI) * st;
 // move it back to the original place
 st += vec2(0.5);
 
@@ -58,3 +57,5 @@ st += vec2(0.5);
 float thickness = 0.01;
 color = mix(color, vec3(1.), step(1.-thickness, st.x) + 1. - step(thickness, st.x));
 color = mix(color, vec3(1.), step(1.-thickness, st.y) + 1. - step(thickness, st.y));
+
+// PI 3.14159265359

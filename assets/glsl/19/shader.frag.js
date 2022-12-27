@@ -1,16 +1,23 @@
-// Author:
-// Title:
+export default /* glsl */`
 
-#define PI 3.14159265359
+
+// created with thebookofshaders editor
+// commented are the lines used within the editor
 
 
 #ifdef GL_ES
 precision mediump float;
 #endif
 
+#define PI 3.14159265359;
+#define hash21(p) fract(sin(dot(p, vec2(122.9898, 78.2033))) * 43758.5453);
+
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
+
+varying vec2 vUv;
+
 
 float random (vec2 st) {
   return fract(sin(dot(st.xy,
@@ -55,26 +62,46 @@ mat2 rotate2d(float _angle){
                 sin(_angle),cos(_angle));
 }
 
-void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;
-    
-    // move space from the center to the vec2(0.0)
-    st -= vec2(0.5);
-    // rotate the space
-    st = rotate2d( sin(0.0)*PI ) * st;
-    // move it back to the original place
-    st += vec2(0.5);
 
-    vec3 color = vec3(1.);
+float fig(vec2 uv,vec2 offset){
+vec2 uuv= uv;
+   uv+=offset;
+ float d = length(uv)-.052;
+    d = smoothstep(.010,.011,d);
+    float c = d;
+
     
-    //color *= random(vec2(floor(st.y*15.)/15.)) - 0.5;
-    // 0.0013
-    // color = mix(color, vec3(0.), line(st, 0.0013, 0.0001 + floor(st.y*600.)/600.));
-    //color = mix(color, vec3(0.), line(st, 0.0019 * random(vec2(st)), 0.0001 + floor(st.y*600.)/600.));
+    vec2 n = uv;
+    float h  = hash21(vec2(1.,1.+.12)+offset);
+      
+    float at= atan(n.x,n.y);
+
+    float q=length(uv)-(.120+.018*1.+sin(u_time*.33+at*9.+h*h*h*h*exp(mod(1.+7.,14.)))*(.01+.001*1.+h*.008));
+    //q = smoothstep(.0040,.0071,abs(q)-.001-sin(u_time+i+at*2.+h*100.)*.005+.003);
+    q = smoothstep(0., fwidth(q),abs(q)-.001-sin(u_time+1.+at*2.+h*100.)*.005-.0001);
+    d = min(q,d);
     
-    float nF = 10.;
-    color = mix(color, vec3(0.), brush(st, 0.013, 0.03 + floor(st.y*nF)/nF, nF));
     
-    gl_FragColor = vec4(color,1.0);
+    float lim = .47;
+    if(abs(uuv.x) >lim || abs(uuv.y) > lim){
+        d=1.;
+    }
+    d = min(c,d);
+    return d;
 }
+
+void main() {
+    // vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    // st.x *= u_resolution.x/u_resolution.y;
+
+    vec2 st = vUv;
+
+    vec2 offset = vec2(0.5,0.5);
+    float d = fig(st,offset);
+    float e = fig(st,offset*-0.5);
+    d  =min(d,e);
+    vec3 col = vec3(d);
+    col = mix(vec3(.1),vec3(1.,.95,.9),col);
+    gl_FragColor = vec4(col,1.0);
+}
+`;

@@ -40,33 +40,10 @@ void main () {
   vUv = uv;
 
   vec4 col = texture2D(texture1, uv);
-  newPosition = position + normal;
-  fPosition = position;
+  newPosition = position;
+  fPosition = (modelViewMatrix * vec4(newPosition, 1.0)).xyz;
 
   newPosition.y += (col.r + col.g + col.b) * noise(vUv * 0.1 + u_time/2.);
-
-  /*
-  newPosition.y = col.r + col.g + col.b < 0.2 ? newPosition.y += noise(vec2(vUv.y)/20. + u_time) / 1.
-  : newPosition.y;
-  */
-
-
-  /*
-  newPosition.y = col.r + col.g + col.b < 0.4 ? newPosition.y += noise(vUv + u_time) / 10.
-  : newPosition.y;
-  */
-
-  
-  //newPosition.x = col.r + col.g + col.b < 0.4 ? newPosition.x += noise(vUv + u_time) / 1.
-  //: newPosition.x;
-  /*
-
-  newPosition.z = col.r + col.g + col.b < 0.4 ? newPosition.z += noise(vUv + u_time) / 10.
-  : newPosition.z;
-
-  newPosition.x -= noise(vUv + u_time) / 10.;
-  // newPosition.y -= noise(vUv + u_time) / 10.;
-  */
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }

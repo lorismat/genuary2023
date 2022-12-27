@@ -12,7 +12,7 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas8
         record="png"
       />
     </client-only>
@@ -21,7 +21,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "light",
+  layout: "dark",
 });
 
 const day = useState('day');

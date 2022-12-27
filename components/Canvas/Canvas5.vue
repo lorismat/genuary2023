@@ -132,3 +132,10 @@ onMounted(() => {
 })
 </script>
 
+<style>
+canvas {
+  border:6px solid #000 !important;
+}
+
+</style>
+

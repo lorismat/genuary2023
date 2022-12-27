@@ -10,11 +10,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 import vertexShader from '@/assets/glsl/22/shader.vert';
 import fragmentShader from '@/assets/glsl/22/shader.frag';
@@ -38,12 +33,9 @@ const appColors = appConfig.colors;
 
 let stats;
 
-let canvas, scene, renderer, camera, composer;
+let canvas, scene, renderer, camera;
 // extras
-let monoMesh;
-let monoGeometry;
-let monoMaterial;
-const dummy = new THREE.Object3D();
+let mesh;
 
 // canvas sizes and record properties
 const props = defineProps({
@@ -65,90 +57,35 @@ function init() {
     3000
   );
 
-  const colorBackground = new THREE.Color(`hsl(${Math.random()*360}, 50%, 50%)`);
-  const colorLight = new THREE.Color(`hsl(${Math.random()*360}, 90%, 60%)`);
-
   canvas = document.getElementById("canvas");
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(colorBackground);
-  renderer.shadowMap.enabled = true;
+  renderer.setClearColor(appColors.white);
 
-  const loader = new GLTFLoader();
-  const count = 100;
+  // shaders setup
+  const uniforms = {
+    u_time: { value: 0 },
+  }
+  // instancing cube
+  const geometry = new THREE.CircleGeometry( 3, 64 );;
+	const material = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: uniforms, 
+    side: THREE.DoubleSide
+  })
 
-  // import
-  loader.load(
-    "models/monolit.glb",
-    function ( gltf ) {
-      const _monoMesh = gltf.scene.getObjectByName( 'Cylinder' );
-      monoGeometry = _monoMesh.geometry.clone();
+  mesh = new THREE.Mesh( geometry, material );
+  scene.add( mesh );
 
-      const defaultTransform = new THREE.Matrix4()
-        .makeRotationX( Math.PI )
-        .multiply( new THREE.Matrix4().makeScale( 1, 70, 1 ) );
-      monoGeometry.applyMatrix4( defaultTransform );
-
-      monoMaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-      });
-      
-
-      monoMesh = new THREE.InstancedMesh( monoGeometry, monoMaterial, count );
-
-      monoMesh.castShadow = true;
-      monoMesh.receiveShadow = true;
-      scene.add( monoMesh );
-
-      for (let i = 0; i<count; i++) {
-        dummy.position.set( -count/2 + i, 50 + Math.random() * count - count/2, Math.random() * 100 - count/2  );
-			  dummy.updateMatrix();
-			  monoMesh.setMatrixAt( i, dummy.matrix );
-      }
-      
-    },
-  );
-
-  camera.position.set(0,250,0);
-  camera.lookAt( new THREE.Vector3(0, 0, 0) );
-
-  // Lights
-  // scene.add(new THREE.AmbientLight( new THREE.Color("#cc6b03") ));
-  
-  const pointLight = new THREE.PointLight(colorLight, 1.1);
-  pointLight.castShadow = true;
-  pointLight.position.set(20,0,0)
-  scene.add(pointLight);
-
-  composer = new EffectComposer( renderer );
-  composer.addPass( new RenderPass( scene, camera ) );
-
-  const ShaderEffect = {
-		uniforms: {
-      'tDiffuse': {
-				value: null
-			},
-      /*
-			'amount': {
-				value: 0.005
-			},
-			'angle': {
-				value: 0.0
-			}
-      */
-    },
-		vertexShader: vertexShader,
-		fragmentShader: fragmentShader
-	};
-
-  const effect = new ShaderPass( ShaderEffect );
-  composer.addPass( effect );
+  camera.position.set(0,0,5);
+  camera.lookAt( scene.position );
 
   // STATS AND CONTROLS
   stats = new Stats();
   if (dev) {
-    //const controls = new OrbitControls( camera, renderer.domElement );
+    const controls = new OrbitControls( camera, renderer.domElement );
     const domContainer = document.body.appendChild( stats.dom );
     domContainer.style.top = "";
     domContainer.style.bottom = "0";
@@ -163,13 +100,12 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
 
-  // const time = - performance.now() * 0.0005;
-  // renderer.render(scene, camera);
-  composer.render();
+  const time = - performance.now() * 0.0005;
+  renderer.render(scene, camera);
   stats.update();
 
   // rendering actions
-  // mesh.material.uniforms.u_time.value = time;
+  mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE
   if (dev && capture) {

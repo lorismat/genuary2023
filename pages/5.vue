@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#5 Debug view"
-      subtitle=""
+      subtitle="Untitled"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -13,7 +13,7 @@
     
     <client-only>
       <CanvasCanvas5
-      small="500"
+        small="500"
         record="png"
       />
     </client-only>
