@@ -23,7 +23,7 @@ let soundStart, player, analyser, soundData;
 let inc = 0;
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -165,7 +165,7 @@ onMounted(() => {
 
     // Connect the player to the analyser
     player.connect(analyser);
-    player.volume.value = -6;
+    // player.volume.value = -6;
 
     // play as soon as the buffer is loaded
     player.autostart = true;

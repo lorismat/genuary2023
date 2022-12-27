@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#10 Generative music"
-      subtitle=""
+      subtitle="Music: Sunder by Nicolas Jaar. Shape is distorted by some frequencies"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
