@@ -2,6 +2,7 @@
   <canvas 
     :style="resizeSmall.style"
     id="canvas"
+    class="border-big"
   >
   </canvas>
 </template>
@@ -24,7 +25,7 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 1;
+const deltaStop = 100;
 const frameRate = 1;
 
 // app config
@@ -132,10 +133,8 @@ onMounted(() => {
 })
 </script>
 
-<style>
-canvas {
-  border:6px solid #000 !important;
+<style lang="scss" scoped>
+.border-big {
+  border: 6px solid #000 !important;
 }
-
 </style>
-

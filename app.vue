@@ -1,7 +1,6 @@
 <template>
   <div>
     <NuxtLayout>
-      <!-- Markup shared across all pages, ex: NavBar -->
       <NuxtPage />
       <TheFooter />
     </NuxtLayout>
@@ -10,12 +9,13 @@
 
 <script setup>
 import moment from 'moment';
-// const day = useState('day', () => moment().date());
 const day = useState('day', () => moment().date());
 </script>
 
-
 <style lang="scss">
+
+// shared style
+
 @font-face {
   font-family: "Oxygen";
   src: url(@/assets/fonts/Oxygen/Oxygen-Regular.ttf) format("truetype");
@@ -54,6 +54,16 @@ button {
   font-size: 12px;
   cursor: pointer;
   margin: 10px 10px 0 0;
+  display:flex;
+  align-items: center;
+
+  svg {
+    padding: 4px;
+  }
+}
+
+.btn-container {
+  display:flex;
 }
 
 .text-left {

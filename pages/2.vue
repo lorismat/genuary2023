@@ -14,7 +14,6 @@
     
     <client-only>
       <CanvasCanvas2 
-
         record="png"
       />
     </client-only>

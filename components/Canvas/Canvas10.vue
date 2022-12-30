@@ -162,21 +162,18 @@ onMounted(() => {
     await Tone.start();
     player = new Tone.Player("/sound/sunder.mp3").toDestination();
     analyser = new Tone.Analyser("waveform", 16);
-
-    // Connect the player to the analyser
     player.connect(analyser);
-    // player.volume.value = -6;
-
-    // play as soon as the buffer is loaded
+    player.volume.value = -6;
     player.autostart = true;
     soundStart = true;
-
     soundData = analyser;
-    console.log('audio is ready');
   })
-
-  console.log(renderer.info);
 })
+
+onBeforeUnmount(() => {
+  player.stop();
+  player.dispose()
+});
 </script>
 
 <style lang="scss" scoped>

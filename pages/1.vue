@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeaderComponent 
-      :title="`#${$route.name} Perfect loop / Infinite loop`"
-      subtitle="position.z = mapLinear(fract(increment), 0, 1, min, max)"
+      title="#1 Perfect loop / Infinite loop"
+      subtitle="30x30 cubes, looping infinitely"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
     <Entries

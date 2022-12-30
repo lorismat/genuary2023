@@ -15,7 +15,7 @@ import vertexShader from '@/assets/glsl/8/shader.vert';
 import fragmentShader from '@/assets/glsl/8/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -23,9 +23,9 @@ let capturer;
 let recordingStop = 0;
 let clock;
 let delta = 0;
-const deltaStep = 0.5;
-const deltaStop = 1;
-const frameRate = 1;
+const deltaStep = 1;
+const deltaStop = 1000;
+const frameRate = 30;
 
 // app config
 const appConfig = useAppConfig();
@@ -61,19 +61,19 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor("#000");
+  renderer.setClearColor("#fff");
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
+    u_resolution: { value: new THREE.Vector2(window.devicePixelRatio *resizeSmall._value.width, window.devicePixelRatio *resizeSmall._value.height)}
   }
   // instancing cube
-  const geometry = new THREE.SphereGeometry(10,64*2, 64*2);
+  const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
-    uniforms: uniforms,
-    transparent:true
+    uniforms: uniforms
   })
 
   mesh = new THREE.Mesh( geometry, material );
@@ -85,7 +85,7 @@ function init() {
   clone.material = new THREE.MeshNormalMaterial();
   //scene.add(clone);
 
-  camera.position.set(0,0,30);
+  camera.position.set(0,0,1.8);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS
@@ -110,11 +110,7 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  // rendering actions
   mesh.material.uniforms.u_time.value = time;
-  // mesh.rotation.z += 0.1;
-  // mesh.rotation.x += 0.1;
-  // mesh.rotation.y += 0.1;
   
   // RECORDING CYCLE
   if (dev && capture) {

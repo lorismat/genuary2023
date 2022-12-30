@@ -7,7 +7,6 @@
     />
 
     <Entries
-      generate="true"
       :prev="`/${Number($route.name) - 1}`"
       :next="(Number($route.name) < day) ? `/${Number($route.name) + 1}` : undefined"
     />

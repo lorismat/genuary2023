@@ -35,7 +35,8 @@ let stats;
 
 let canvas, scene, renderer, camera;
 // extras
-let points;
+let points; 
+let lerpVal, posToLerp;
 
 // canvas sizes and record properties
 const props = defineProps({
@@ -101,8 +102,6 @@ function init() {
     [69, 148, 81],
     [159, 219, 67],
     [196, 255, 110],
-    //[179, 0, 162],
-    //[255, 7, 232]
   ]
 
   palette.map(c => {
@@ -151,7 +150,6 @@ function init() {
       color.setRGB(flowers[i].mainColor[0],flowers[i].mainColor[1],flowers[i].mainColor[2] );
       colors.push(color.r, color.g, color.b);
 
-
       positions.push( x, y, z );
       sizes.push(Math.random()*3);
     }
@@ -190,8 +188,15 @@ function init() {
   scene.add( mesh );
 
 
-  camera.position.set(-300,-100,300);
+  // 2 random positions
+  const posInit = flowers[Math.round(Math.random()*flowerNumber)];
+  const posEnd = flowers[Math.round(Math.random()*flowerNumber)];
+
+  camera.position.set(posInit.centerX, posInit.centerY, posInit.centerZ);
+  posToLerp = new THREE.Vector3(posEnd.centerX, posEnd.centerY, posEnd.centerZ);
   camera.lookAt( scene.position );
+
+  lerpVal = 0;
 
   // STATS AND CONTROLS
   stats = new Stats();
@@ -211,13 +216,14 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
 
-  // const time = - performance.now() * 0.0005;
+  const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
 
-  camera.position.x += 0.02;
-  camera.position.y += 0.02;
-  camera.position.z -= 0.02;
+  lerpVal += 0.000005;
+
+  camera.position.lerp(posToLerp, lerpVal);
+  camera.lookAt( scene.position );
   
   // RECORDING CYCLE
   if (dev && capture) {

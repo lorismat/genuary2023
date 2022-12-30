@@ -17,13 +17,13 @@
       </p> 
 
       <div class="text-left primary py-2">
-        @lorismat_
+        @lorismat_ <br>
       </div>
       <div class="grid">
         <div  class="grid-item" v-for="p in projects">
           <a v-if="(p.id <= day)" :href="p.url">
             <img :src="p.img" :alt="p.url">
-            <span class="pic-title">{{ p.title }}</span>
+            <!-- <span class="pic-title">{{ p.title }}</span> -->
           </a>
         </div>
       </div>
@@ -38,7 +38,7 @@ const projects = Array(31).fill().map((_, i) => {
   return {
     id:i+1,
     url:`/${i+1}`,
-    img:`/cover/cov${i+1}.png`,
+    img:`/cover/cov${i+1}NB.png`,
     title:`#${i+1}`
   }
 })
@@ -75,7 +75,6 @@ p {
 img {
   max-width: 300px;
   max-height: 300px;
-  // border: 1px solid #fff;
 }
 
 svg {
@@ -98,6 +97,8 @@ svg {
 .grid-item {
   position:relative;
 }
+
+/*
 .pic-title {
   position:absolute;
   bottom:0;
@@ -110,13 +111,7 @@ svg {
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #fff;
 }
-
-.svg-line {
-  //position: absolute;
-  //top:10%;
-  width:100%;
-  margin:0;
-}
+*/
 
 @media screen and (max-width: 992px) {
   .grid {

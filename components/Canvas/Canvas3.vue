@@ -15,7 +15,7 @@ import vertexShader from '@/assets/glsl/3/shader.vert';
 import fragmentShader from '@/assets/glsl/3/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // app config
@@ -29,8 +29,8 @@ let capturer;
 let recordingStop = 0;
 let clock;
 let delta = 0;
-const deltaStep = 0.05;
-const deltaStop = 2;
+const deltaStep = 0.5;
+const deltaStop = 1;
 const frameRate = 1;
 
 let canvas, scene, renderer, camera;
