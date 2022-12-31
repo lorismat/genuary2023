@@ -47,7 +47,7 @@ const dummy = new THREE.Object3D();
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 

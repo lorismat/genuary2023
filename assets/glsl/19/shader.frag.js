@@ -5,10 +5,6 @@ export default /* glsl */`
 // commented are the lines used within the editor
 
 
-#ifdef GL_ES
-precision mediump float;
-#endif
-
 #define PI 3.14159265359;
 #define hash21(p) fract(sin(dot(p, vec2(122.9898, 78.2033))) * 43758.5453);
 

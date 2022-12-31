@@ -54,7 +54,7 @@ const capture = false;
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 

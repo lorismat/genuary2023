@@ -18,7 +18,7 @@ import vertexShaderBg from '@/assets/glsl/25/shader-bg.vert';
 import fragmentShaderBg from '@/assets/glsl/25/shader-bg.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -27,7 +27,7 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 1;
+const deltaStop = 100;
 const frameRate = 1;
 
 // app config
@@ -42,7 +42,7 @@ let mesh, meshBg;
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 

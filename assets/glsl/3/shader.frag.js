@@ -4,10 +4,6 @@ export default /* glsl */`
 // created with thebookofshaders editor
 // commented are the lines used within the editor
 
-#ifdef GL_ES
-precision mediump float;
-#endif
-
 varying vec2 vUv;
 uniform vec2 u_resolution;
 uniform float mainSeed;

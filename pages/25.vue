@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#25 Yayoi Kusama"
-      subtitle=""
+      subtitle="O"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 

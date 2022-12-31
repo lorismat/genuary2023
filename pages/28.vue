@@ -14,7 +14,8 @@
     
     <client-only>
       <CanvasCanvas28
-        record="png"
+        small="650"
+        record="webm"
       />
     </client-only>
   </div>

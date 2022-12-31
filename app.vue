@@ -102,4 +102,8 @@ button {
 .py-2 {
   padding: 8px 0px;
 }
+
+// small canvas for mobile devices
+
+
 </style>

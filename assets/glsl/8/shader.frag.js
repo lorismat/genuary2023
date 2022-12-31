@@ -59,7 +59,7 @@ void main () {
   vec2 m = (2.0*gl_FragCoord.xy-u_resolution.xy)/u_resolution.y;
   float f = 0.9;
 
-  float d = sdCircle(p,0.8);
+  float d = sdCircle(p,0.4);
   float t = u_time * 0.5;
 
   float dd = sdCircle(

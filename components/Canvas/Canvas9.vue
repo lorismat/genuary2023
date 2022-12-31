@@ -1,9 +1,14 @@
 <template>
-  <canvas 
-    :style="resizeSmall.style"
-    id="canvas"
-  >
-  </canvas>
+  <div>
+    <canvas 
+        :style="resizeSmall.style"
+        id="canvas"
+      >
+    </canvas>
+    <br>
+    <div id="not-responsive"></div>
+  </div>
+  
 </template>
 
 <script setup>
@@ -24,7 +29,7 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 2;
+const deltaStop = 1;
 const frameRate = 1;
 
 // app config
@@ -40,7 +45,7 @@ let lerpVal, posToLerp;
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 
@@ -82,8 +87,8 @@ function init() {
   })
 
   const flowerNumber = 200;
-  const minParticlesOnFlower = 500;
-  const maxExtraParticlesOnFlower = 2000;
+  let minParticlesOnFlower = 500;
+  let maxExtraParticlesOnFlower = 2000;
 
   const positions = [];
   const sizes = [];
@@ -151,7 +156,10 @@ function init() {
       colors.push(color.r, color.g, color.b);
 
       positions.push( x, y, z );
+
       sizes.push(Math.random()*3);
+      
+      
     }
 
   }
@@ -186,7 +194,6 @@ function init() {
     mesh.setColorAt( i, color)
   }
   scene.add( mesh );
-
 
   // 2 random positions
   const posInit = flowers[Math.round(Math.random()*flowerNumber)];
@@ -235,16 +242,26 @@ function animate() {
 }
 
 onMounted(() => {
-  init();
-  animate();
+
+  if (window.innerWidth > 700) {
+    init();
+    animate();
+  } else {
+    const messageId = document.getElementById('not-responsive');
+    messageId.innerHTML = "Unfortunately, not suitable for mobile devices";
+  }
+
   window.addEventListener("resize", function() {
     compOnWindowResize(camera, renderer, window);
   });
   const randBtn = document.getElementById('randomize');
-  if (randBtn != undefined) {
-    randBtn.onclick = function() { 
-      init();
-    };
+
+  if (window.innerWidth > 700) {
+    if (randBtn != undefined) {
+      randBtn.onclick = function() { 
+        init();
+      };
+    }
   }
 })
 </script>

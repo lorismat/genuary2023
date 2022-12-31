@@ -39,7 +39,7 @@ let mesh;
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 
@@ -70,7 +70,7 @@ function init() {
     mainSeed: { value: seed }
   }
   // instancing cube
-  const geometry = new THREE.PlaneGeometry(5,5);
+  const geometry = new THREE.PlaneGeometry(12,12);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -80,7 +80,7 @@ function init() {
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
 
-  camera.position.set(0,0,5);
+  camera.position.set(0,0,9);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS

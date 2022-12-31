@@ -14,7 +14,7 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { SimplexNoise } from 'three/examples/jsm/math/SimplexNoise.js';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -37,7 +37,7 @@ const noise = new SimplexNoise();
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 

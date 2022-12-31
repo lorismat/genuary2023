@@ -43,7 +43,7 @@ const noise = new SimplexNoise();
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 

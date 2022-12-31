@@ -28,9 +28,9 @@ let capturer;
 let recordingStop = 0;
 let clock;
 let delta = 0;
-const deltaStep = 0.5;
-const deltaStop = 1;
-const frameRate = 1;
+const deltaStep = 1;
+const deltaStop = 1500;
+const frameRate = 30;
 
 // app config
 const appConfig = useAppConfig();
@@ -56,7 +56,7 @@ const scalar = 1;
 
 // canvas sizes and record properties
 const props = defineProps({
-  small: Number,
+  small: String,
   record: String
 })
 

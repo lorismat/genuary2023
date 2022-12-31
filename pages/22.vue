@@ -13,7 +13,6 @@
     
     <client-only>
       <CanvasCanvas22
-        generate="true"
         record="png"
       />
     </client-only>

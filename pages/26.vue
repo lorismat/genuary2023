@@ -14,7 +14,7 @@
     
     <client-only>
       <CanvasCanvas26
-        record="png"
+        record="webm"
       />
     </client-only>
   </div>

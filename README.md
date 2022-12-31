@@ -2,22 +2,37 @@
 
 [Live Website](https://lorismat-genuary2023.vercel.app/)  
 
-
-[Genuary](https://genuary.art/) is a challenge where participants submit entries made with generative code every day of January. Each day matches with [a specific prompt]().
-All my prompts are made with Three.js and/or glsl and are available in this repository.
-
 ## About the code
 
-The website is a `Nuxt` application. All prompts are `vue` components using `Three.js` accessible in `components/Canvas/CanvasX.vue`.  
-Some of the prompts run shaders, accessible in `assets/glsl/X`, `X` being the prompt day. 
+The website is a `Nuxt` application.  
+All my prompts are made with Three.js and/or glsl and are available in this repository.  
+All prompts are `vue` components using `Three.js` accessible in `components/Canvas/CanvasX.vue`.  
+Some of the prompts run shaders, accessible in `assets/glsl/X`, `X` being the prompt day.  
+
+You can use any part of the code but please let me know if you do! And leave the credits where I left them, if any.
 
 ## Prompts
 
-_from [Genuary 23](https://genuary.art/prompts)_  
+_All previews will be updated by Jan 31st_
 
-1. Perfect loop / Infinite loop / endless GIFs
-2. Made in 10 min
-3. Glitch Art
+#### #1 Perfect loop / Infinite loop / endless GIFs  
+
+<img src="./public/cover/cov1NB.png" width="200" height="200" />
+
+#### #2 Made in 10 min  
+
+<img src="./public/cover/cov2.png" width="200" height="200" />
+<img src="./public/cover/cov2_1.png" width="200" height="200" />
+<img src="./public/cover/cov2_2.png" width="200" height="200" />
+<img src="./public/cover/cov2_3.png" width="200" height="200" />
+
+#### #3 Glitch Art
+
+<img src="./public/cover/cov3.png" width="200" height="200" />
+<img src="./public/cover/cov3_1.png" width="200" height="200" />
+<img src="./public/cover/cov3_2.png" width="200" height="200" />
+<img src="./public/cover/cov3_3.png" width="200" height="200" />
+
 4. Intersections
 5. Debug view
 6. Steal Like An Artist

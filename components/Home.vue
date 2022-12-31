@@ -73,8 +73,8 @@ p {
 }
 
 img {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 350px;
+  max-height: 350px;
 }
 
 svg {
@@ -122,6 +122,12 @@ svg {
     place-items: start;
     column-gap: 4px;
     row-gap: 0px;
+    margin: 0;
+  }
+
+  img {
+    max-width: 300px;
+    max-height: 300px;
   }
 }
 
@@ -134,6 +140,12 @@ svg {
     place-items: start;
     column-gap: 4px;
     row-gap: 0px;
+    margin: 0;
+  }
+
+  img {
+    max-width: 300px;
+    max-height: 300px;
   }
 }
 </style>

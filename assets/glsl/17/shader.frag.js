@@ -8,10 +8,6 @@ export default /* glsl */`
 // Light Circles by Deefunct
 // https://www.shadertoy.com/view/MlyGzW
 
-#ifdef GL_ES
-precision mediump float;
-#endif
-
 varying vec2 vUv;
 uniform vec2 u_resolution;
 uniform float u_time;
