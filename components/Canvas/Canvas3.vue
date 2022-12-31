@@ -34,6 +34,7 @@ const deltaStop = 1;
 const frameRate = 1;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let mesh;
 
@@ -69,7 +70,7 @@ function init() {
   const uniforms = {
     mainSeed: { value: seed }
   }
-  // instancing cube
+
   const geometry = new THREE.PlaneGeometry(12,12);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

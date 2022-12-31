@@ -34,7 +34,7 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
-// extras
+
 let mesh;
 
 // canvas sizes and record properties
@@ -67,7 +67,7 @@ function init() {
   const uniforms = {
     u_time: { value: 0 },
   }
-  // instancing cube
+
   const geometry = new THREE.CircleGeometry( 3, 64 );;
 	const material = new THREE.ShaderMaterial({
     vertexShader,
@@ -104,7 +104,6 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  // rendering actions
   mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE

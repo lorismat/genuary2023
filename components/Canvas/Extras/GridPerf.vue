@@ -147,6 +147,44 @@ function init() {
   line2.position.y -= lineSpacing/2;
   line2.position.x -= lineSpacing/2;
 
+  /* PERFECT GRID with 3 vertices per LINE | WORKING WITH INDICES */
+  /*
+  const geometry = new THREE.BufferGeometry();
+  const material = new THREE.LineBasicMaterial( { vertexColors: true } );
+  let index = [];
+  let idxInc = 0;
+
+  for ( let i = -lineNumber/2; i < lineNumber/2; i ++ ) {
+
+    const x1 = -30;
+    const y1 = i*2;
+    const x2 = 0;
+    const y2 = i*2;
+    const x3 = 30;
+    const y3 = i*2;
+    const z = 0;
+
+    // positions
+    positions.push( x1, y1, z );
+    positions.push( x2, y2, z );
+    positions.push( x3, y3, z );
+
+    // colors
+    colors.push(0.4, 0, 0);
+    colors.push(0.4, 0, 0);
+    colors.push(0.4, 0, 0);
+
+    // every shared vertices shares the same index
+    index.push(idxInc, idxInc+1, idxInc+1, idxInc+2);
+    idxInc += 3;
+  }
+  
+  geometry.setIndex(index);
+  geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+  geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+  const line = new THREE.LineSegments( geometry, material );
+  */
+
   scene.add( line );
   scene.add( line2 );
 
@@ -174,6 +212,7 @@ function animate() {
 
   renderer.render(scene, camera);
 
+  
   // RECORDING CYCLE
   if (dev && capture) {
     delta += deltaStep;

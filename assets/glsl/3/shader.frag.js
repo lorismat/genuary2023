@@ -1,17 +1,10 @@
 export default /* glsl */`
 
-
-// created with thebookofshaders editor
-// commented are the lines used within the editor
-
 varying vec2 vUv;
 uniform vec2 u_resolution;
 uniform float mainSeed;
 
-// CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
-// noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
-
 float random (vec2 st) {
   return fract(sin(dot(st.xy,
                         vec2(12.9808,78.233)))*
@@ -24,20 +17,6 @@ vec2 random2(vec2 st){
   return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-// CREDIT -- Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
-float noise(vec2 st) {
-  vec2 i = floor(st);
-  vec2 f = fract(st);
-
-  vec2 u = f*f*(3.0-2.0*f);
-
-  return mix( mix( dot( random2(i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ),
-                    dot( random2(i + vec2(1.0,0.0) ), f - vec2(1.0,0.0) ), u.x),
-              mix( dot( random2(i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ),
-                    dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
-}
-
 float rect(vec2 st, float x, float y, float W, float H) {
     float R = 1. - (step(x, st.x) + 1. - step(x+W, st.x));
     R *= 1. - (step(y, st.y) + 1. - step(y+H, st.y));
@@ -46,10 +25,7 @@ float rect(vec2 st, float x, float y, float W, float H) {
 
 void main () {
 
-  //vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  //st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
-    
   st *= fract(st*2.);
 
   float seed = mainSeed; // attempts with dynamic seed at first    

@@ -7,13 +7,6 @@
 </template>
 
 <script setup>
-
-
-// to do
-// line for plane
-// plane follows line
-// random line for plane
-// random spheres
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
@@ -31,10 +24,6 @@ let delta = 0;
 const deltaStep = 1;
 const deltaStop = 1500;
 const frameRate = 30;
-
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
 
 let stats;
 
@@ -98,7 +87,6 @@ function init() {
     },
   );
 
-
   // path for camera
   const scalarSpline = 250;
   const pointsForSpline = [];
@@ -125,16 +113,11 @@ function init() {
   scene.add(meshSpline);
 
   // mesh sphere instanced
-
   const matrix = new THREE.Matrix4();
   const amountSpheres = 60;
-
   const geometrySphere = new THREE.IcosahedronGeometry( 1, 8 );
-
-
   const materialSphere = new THREE.MeshToonMaterial({
     color: 0xffffff
-    // color: new THREE.Color("#fff"),
   });
   meshSphere = new THREE.InstancedMesh( geometrySphere, materialSphere, amountSpheres )
   
@@ -163,7 +146,6 @@ function init() {
     meshSphere.setMatrixAt( i, matrix );
     meshSphere.setColorAt( i, color );
   }
-  console.log(meshSphere);
   scene.add( meshSphere );
 
   const light = new THREE.PointLight( 0xffffff, 1);
@@ -184,7 +166,6 @@ function init() {
   if (dev && capture) {
     capturer = compInitCapture(capturer, props.record, clock, frameRate);
   }
-
 
 }
 
@@ -216,9 +197,7 @@ function animate() {
 
   normal.copy( binormal ).cross( direction );
   position.add( normal.clone().multiplyScalar( offset ) );
-  
 
-  // using arclength for stablization in look ahead
   geometrySpline.parameters.path.getPointAt( ( t + 30 / geometrySpline.parameters.path.getLength() ) % 1, lookAt );
   lookAt.multiplyScalar( scalar );
   lookAt.copy( position ).add( direction );
@@ -229,8 +208,6 @@ function animate() {
     meshPlane.quaternion.setFromRotationMatrix( meshPlane.matrix );
   } 
   
-
-
   stats.update();
   
   // RECORDING CYCLE
@@ -255,7 +232,6 @@ onMounted(() => {
     };
   }
 
-  console.log(renderer.info);
 })
 </script>
 

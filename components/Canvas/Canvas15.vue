@@ -8,7 +8,6 @@
 
 <script setup>
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 import vertexShader from '@/assets/glsl/15/shader.vert';
@@ -27,13 +26,10 @@ const deltaStep = 0.5;
 const deltaStop = 1;
 const frameRate = 1;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let mesh;
 
@@ -72,9 +68,8 @@ function init() {
     seedColor: { value: seedColor }
   }
 
-  // 
-
   const spread = 12 + Math.random() * 10;
+
   class CustomSinCurve extends THREE.Curve {
     constructor( scale = 10 ) {
       super();
@@ -96,7 +91,6 @@ function init() {
     vertexShader,
     fragmentShader,
     uniforms: uniforms,
-    side: THREE.DoubleSide, 
     transparent: true
   } );
 
@@ -135,13 +129,8 @@ function init() {
 
 function animate() {
   requestAnimationFrame(animate);
-
-  const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
-
-  // rendering actions
-  // mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE
   if (dev && capture) {

@@ -28,10 +28,6 @@ const deltaStep = 0.5;
 const deltaStop = 100;
 const frameRate = 1;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
@@ -68,7 +64,7 @@ function init() {
   const uniforms = {
     u_time: { value: 0 },
   }
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(8,8);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

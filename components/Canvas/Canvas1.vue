@@ -29,7 +29,7 @@ let delta = 0;
 let canvas, scene, renderer, camera;
 let mesh, matrix;
 
-// objects on one row
+// objects in one row
 const amount = 30;
 const offset = ( amount - 1 ) / 2;
 const count = Math.pow( amount, 2 );
@@ -42,11 +42,8 @@ const amplitudes = [];
 const amplitudeMin = 50; // min amplitude
 const amplitudeRandomness = 10; // extra amplitude: random from 0 to 10
 
-// init Z positions are randomised
+// initial Z positions are randomised
 const incs = [];
-
-// position attribute for vertex shader
-const positions = [];
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;
@@ -82,8 +79,7 @@ function init() {
   const geometry = new THREE.BoxGeometry(1,1,1);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
-    fragmentShader,
-    // transparent: true
+    fragmentShader
   })
 
   mesh = new THREE.InstancedMesh( geometry, material, count );
@@ -120,7 +116,6 @@ function init() {
   }
   mesh.geometry.setAttribute( 'amplitude', new THREE.Float32BufferAttribute( amplitudes, 1 ) );
   mesh.geometry.setAttribute( 'inc', new THREE.Float32BufferAttribute( incs, 1 ) );
-
 
   scene.add( mesh );
 

@@ -29,14 +29,10 @@ const deltaStep = 0.5;
 const deltaStop = 1;
 const frameRate = 1;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
-// extras
+
 let mesh;
 
 const noise = new SimplexNoise();
@@ -113,7 +109,6 @@ function init() {
   }
 
   scene.add( mesh );
-  // mesh.lookAt(scene.position);
   camera.position.set(0,0,430);
   camera.lookAt( scene.position );
 
@@ -138,12 +133,8 @@ function animate() {
   const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
 
-  // mesh.rotation.y += 0.01;
-  // mesh.rotation.x += 0.01;
-  // mesh.rotation.z += 0.01;
   stats.update();
 
-  // rendering actions
   mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE

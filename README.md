@@ -21,17 +21,11 @@ _All previews will be updated by Jan 31st_
 
 #### #2 Made in 10 min  
 
-<img src="./public/cover/cov2.png" width="200" height="200" />
-<img src="./public/cover/cov2_1.png" width="200" height="200" />
-<img src="./public/cover/cov2_2.png" width="200" height="200" />
-<img src="./public/cover/cov2_3.png" width="200" height="200" />
+<img src="./public/cover/cov2.png" width="200" height="200" /><img src="./public/cover/cov2_1.png" width="200" height="200" /><img src="./public/cover/cov2_2.png" width="200" height="200" /><img src="./public/cover/cov2_3.png" width="200" height="200" />
 
 #### #3 Glitch Art
 
-<img src="./public/cover/cov3.png" width="200" height="200" />
-<img src="./public/cover/cov3_1.png" width="200" height="200" />
-<img src="./public/cover/cov3_2.png" width="200" height="200" />
-<img src="./public/cover/cov3_3.png" width="200" height="200" />
+<img src="./public/cover/cov3.png" width="200" height="200" /><img src="./public/cover/cov3_1.png" width="200" height="200" /><img src="./public/cover/cov3_2.png" width="200" height="200" /><img src="./public/cover/cov3_3.png" width="200" height="200" />
 
 4. Intersections
 5. Debug view

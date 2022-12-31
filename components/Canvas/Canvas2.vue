@@ -14,8 +14,6 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import vertexShader from '@/assets/glsl/2/shader.vert';
 import fragmentShader from '@/assets/glsl/2/shader.frag';
 
-import { Extension } from '@/assets/js/class-extension.js'
-
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;
 const capture = false;
@@ -29,16 +27,15 @@ let stats;
 // record purposes
 let capturer;
 let recordingStop = 0;
-let clock;
 let delta = 0;
 const deltaStep = 0.5;
 const deltaStop = 1;
 const frameRate = 1;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let mesh;
-
 
 // canvas sizes and record properties
 const props = defineProps({
@@ -68,7 +65,6 @@ function init() {
 
   const seed = Math.random()*1000;
 
-
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
@@ -76,8 +72,8 @@ function init() {
     lineNumber: { value: 10.0 },
     lineThickness: { value: 0.1 },
     seed: { value: seed }
-
   }
+  
   // instancing cube
   const geometry = new THREE.PlaneGeometry(15,15);
 	const material = new THREE.ShaderMaterial({

@@ -67,7 +67,7 @@ function init() {
   const uniforms = {
     u_time: { value: 0 },
   }
-  // instancing cube
+
   const geometry = new THREE.PlaneGeometry(8,8);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
@@ -103,7 +103,6 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  // rendering actions
   mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE

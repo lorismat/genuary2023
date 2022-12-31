@@ -1,8 +1,9 @@
 export default /* glsl */`
 varying vec2 vUv;
 varying vec3 pos;
-uniform float u_time;
 
+// random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
+// noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
 float random (vec2 st) {
   return fract(sin(dot(st.xy,
                         vec2(12.9808,78.233)))*
@@ -15,8 +16,6 @@ vec2 random2(vec2 st){
   return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-// CREDIT -- Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st) {
   vec2 i = floor(st);
   vec2 f = fract(st);
@@ -33,8 +32,8 @@ void main () {
   vUv = uv;
   vec3 ver = position;
   pos = (instanceMatrix * vec4(position, 1.0)).xyz;
-  ver.x += noise(pos.xy/20. + u_time/2.) * 20.;
-  ver.y += noise(pos.xy/20. + u_time/2.) * 20.;
+  ver.x += noise(pos.xy/20. + 0.1) * 20.;
+  ver.y += noise(pos.xy/20. + 0.1) * 20.;
   
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * instanceMatrix * vec4(ver, 1.0);
   

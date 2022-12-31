@@ -1,17 +1,11 @@
 export default /* glsl */`
-
-
 varying vec2 vUv;
 varying float posZ;
 uniform float u_time;
 
 void main () {
-
-  // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
-
-  vec3 color = vec3(0.98,0.98,0.98); // broken white
+  vec3 color = vec3(0.98,0.98,0.98);
     
   float bW = 0.01; // border weight
   float sF = 0.02; // smooth factor

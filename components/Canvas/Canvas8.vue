@@ -27,13 +27,10 @@ const deltaStep = 1;
 const deltaStop = 1000;
 const frameRate = 30;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let mesh;
 
@@ -68,7 +65,7 @@ function init() {
     u_time: { value: 0 },
     u_resolution: { value: new THREE.Vector2(window.devicePixelRatio *resizeSmall._value.width, window.devicePixelRatio *resizeSmall._value.height)}
   }
-  // instancing cube
+
   const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
@@ -78,12 +75,6 @@ function init() {
 
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
-
-  const clone = mesh.clone();
-  clone.scale.set(0.95,0.95,0.95);
-
-  clone.material = new THREE.MeshNormalMaterial();
-  //scene.add(clone);
 
   camera.position.set(0,0,1.8);
   camera.lookAt( scene.position );

@@ -35,6 +35,7 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let group;
 
@@ -68,30 +69,19 @@ function init() {
   const uniforms = {
     u_time: { value: 0 },
   }
-  
-  // instancing cube
-  const geometry = new THREE.PlaneGeometry(5,5);
 
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
-    uniforms: uniforms,
-    side: THREE.DoubleSide
+    uniforms: uniforms
   })
-
-  // const material = new THREE.MeshNormalMaterial();
 
   // svg loader
   const url = '/svg/writing-real.svg';
   const loader = new SVGLoader();
-
   group = new THREE.Group();
-
   loader.load( url, function ( data ) {
-
     const paths = data.paths;
-
-    // const group = new THREE.Group();
     group.scale.multiplyScalar( 0.5 );
     group.position.x = -25;
     group.position.y = 5;
@@ -99,19 +89,6 @@ function init() {
           
     for ( let i = 0; i < paths.length; i ++ ) {
       const path = paths[ i ];
-      const strokeColor = path.userData.style.stroke;
-
-      /*
-        const material = new THREE.MeshBasicMaterial( {
-          color: new THREE.Color().setStyle( strokeColor ).convertSRGBToLinear(),
-          opacity: path.userData.style.strokeOpacity,
-          transparent: true,
-          side: THREE.DoubleSide,
-          depthWrite: false,
-          wireframe: guiData.strokesWireframe
-        } );
-      */
-
       for ( let j = 0, jl = path.subPaths.length; j < jl; j ++ ) { 
         const subPath = path.subPaths[ j ];
         const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
@@ -140,8 +117,6 @@ function init() {
   if (dev && capture) {
     capturer = compInitCapture(capturer, props.record, clock, frameRate);
   }
-
-  console.log(group);
 }
 
 function animate() {
@@ -155,9 +130,7 @@ function animate() {
   for (let i = 0; i<group.children.length; i++) {
     group.children[i].material.uniforms.u_time.value = time;
   }
-  
-  //group.material != undefined ? group.material.uniforms.u_time.value = time: '';
-  
+    
   // RECORDING CYCLE
   if (dev && capture) {
     delta += deltaStep;

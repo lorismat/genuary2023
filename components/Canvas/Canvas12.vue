@@ -26,10 +26,6 @@ const deltaStep = 0.5;
 const deltaStop = 1;
 const frameRate = 1;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
@@ -80,11 +76,9 @@ function init() {
   let bInc = Math.random()*100;
   let noiseVal;
 
-
   const colors = [];
   let color = new THREE.Color("purple");
   
-
   const variationDetail = Math.round(Math.random()*20) + 2;
 
   for (let i=0;i<geometry.attributes.position.count; i++) {
@@ -105,7 +99,6 @@ function init() {
     opacity:0.9,
     transparent:true
   })
-  
 
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );

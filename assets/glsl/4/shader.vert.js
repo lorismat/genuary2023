@@ -1,6 +1,6 @@
 export default /* glsl */`
 
-// size and colors from offical three.js example
+// size helper from the offical three.js example
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_custom_attributes_points2.html
 
 attribute float size;

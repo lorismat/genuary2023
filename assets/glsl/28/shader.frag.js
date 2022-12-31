@@ -1,6 +1,5 @@
 export default /* glsl */`
 uniform vec3 color;
-// uniform sampler2D pointTexture;
 varying vec3 vColor;
 uniform float alphaTest;
 

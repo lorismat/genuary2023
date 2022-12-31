@@ -28,10 +28,6 @@ const deltaStep = 0.5;
 const deltaStop = 200;
 const frameRate = 1;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
@@ -82,7 +78,6 @@ function init() {
     const paths = data.paths;
     for ( let i = 0; i < paths.length; i ++ ) {
       const path = paths[ i ];
-      const strokeColor = path.userData.style.stroke;
       for ( let j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
         const subPath = path.subPaths[ j ];
         const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
@@ -99,7 +94,6 @@ function init() {
     mesh.rotation.y = Math.PI;
   })
   
-
   camera.position.set(0,0,500);
   camera.lookAt( scene.position );
 
@@ -125,9 +119,7 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  // rendering actions
   mesh != undefined ? mesh.material.uniforms.u_time.value = time: '';
-   
 
   // RECORDING CYCLE
   if (dev && capture) {

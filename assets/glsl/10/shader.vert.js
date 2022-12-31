@@ -4,9 +4,9 @@ varying vec3 vNormal;
 varying vec3 pos;
 varying vec3 pos2;
 uniform float u_time;
-uniform float attempt;
-uniform float attempt2;
-uniform float attempt3;
+uniform float freq1;
+uniform float freq2;
+uniform float freq3;
 
 // CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -24,8 +24,6 @@ vec2 random2(vec2 st){
   return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-// CREDIT -- Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st) {
   vec2 i = floor(st);
   vec2 f = fract(st);
@@ -44,13 +42,9 @@ void main () {
   pos2 = (projectionMatrix * vec4(position, 1.0)).xyz;
   vNormal = normalize( normalMatrix * normal );
 
-  // pos.x += noise(pos.xy/10. + u_time)* 1.5;
-  // pos.y += noise(pos.xy/10. + u_time)* 1.5;
-  // pos.z += noise(pos.xy/10. + u_time)* 1.5;
-
-  pos.x += noise(pos.xy/10. + u_time) * attempt * 5.;
-  pos.y += noise(pos.xy/10. + u_time) * attempt2 * 5.;
-  pos.z += abs(attempt3) > 0. ? noise(pos.xy/10. + u_time) * 5. : 0.;
+  pos.x += noise(pos.xy/10. + u_time) * freq1 * 5.;
+  pos.y += noise(pos.xy/10. + u_time) * freq2 * 5.;
+  pos.z += abs(freq3) > 0. ? noise(pos.xy/10. + u_time) * 5. : 0.;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }

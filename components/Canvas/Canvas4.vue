@@ -126,8 +126,6 @@ function init() {
   geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
   geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ) );
 
-  geometry.computeBoundingSphere();
-
   // shader to define the size of each point based on their z value
   const material = new THREE.ShaderMaterial( {
     uniforms: {
@@ -161,7 +159,6 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
 
-  const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
   

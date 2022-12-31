@@ -5,7 +5,7 @@ uniform vec2 u_resolution;
 uniform float u_time;
 
 // smooth min implementation and SDF in 2d with circles
-// from Inigo Quilez articles!
+// from Inigo Quilez articles
 // smooth min: 
 // https://iquilezles.org/articles/smin/
 // sdf in 2d:
@@ -21,7 +21,6 @@ float smin(float a, float b, float k) {
   return min(a, b) - h*h*h*k*1./6.;
 }
 
-// CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
 // noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
 
@@ -37,8 +36,6 @@ vec2 random2(vec2 st){
   return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-// CREDIT -- Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st) {
   vec2 i = floor(st);
   vec2 f = fract(st);
@@ -54,14 +51,15 @@ float noise(vec2 st) {
 void main () {
 
   vec3 col = vec3(1.);
-
   vec2 p = (2.0*gl_FragCoord.xy-u_resolution.xy)/u_resolution.y;
   vec2 m = (2.0*gl_FragCoord.xy-u_resolution.xy)/u_resolution.y;
   float f = 0.9;
 
+  // circle in the center
   float d = sdCircle(p,0.4);
   float t = u_time * 0.5;
 
+  // outside circle 1
   float dd = sdCircle(
     m + vec2(
       sin(t * f + 1.)*1.5,
@@ -69,6 +67,7 @@ void main () {
     ),
   0.25);
 
+  // outside circle 2
   float ddd = sdCircle(
     m + vec2(
       cos(t * f + 3.)*1.5,

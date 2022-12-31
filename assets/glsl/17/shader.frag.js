@@ -1,9 +1,4 @@
 export default /* glsl */`
-
-
-// created with thebookofshaders editor
-// commented are the lines used within the editor
-
 // direct inspiration for the eclipse effect: 
 // Light Circles by Deefunct
 // https://www.shadertoy.com/view/MlyGzW
@@ -12,10 +7,8 @@ varying vec2 vUv;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-// CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
 // noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
-
 float random (vec2 st) {
     
     return fract(sin(dot(st.xy,
@@ -44,9 +37,6 @@ float noise(vec2 st) {
 void main() {
     // circle in the center
     vec2 st = 2.1*(2.0*gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-    
-    //vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    //st.x *= u_resolution.x/u_resolution.y;
     
     vec2 center = vec2(0., 0.);
     

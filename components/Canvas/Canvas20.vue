@@ -36,7 +36,7 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
-// extras
+
 let mesh;
 
 const noise = new SimplexNoise();
@@ -66,20 +66,12 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  // renderer.setClearColor(new THREE.Color(`hsl(${Math.random()*360}, 50%, 50%)`));
   renderer.setClearColor(appColors.black);
-
-  // shaders setup
-  const uniforms = {
-    u_time: { value: 0 },
-  }
 
   const geometry = new THREE.BoxGeometry( 30,30,200);
   const material = new THREE.ShaderMaterial({
     fragmentShader,
-    vertexShader,
-    uniforms: uniforms,
-    // wireframe:true
+    vertexShader
   });
 
   const position = new THREE.Vector3();
@@ -105,7 +97,6 @@ function init() {
     noiseVal = noise.noise(aInc, bInc);
     position.x = noiseVal * 20;
     position.y = Math.random() * 600 - 300;
-    //position.z =  Math.random() * 300 - 150;
 
     quaternion.setFromEuler( rotation );
     scale.x = scale.y = scale.z = Math.random() * 1 + 1;
@@ -126,7 +117,6 @@ function init() {
   mesh2.position.y += 0;
 
   mesh2.rotation.y = Math.PI;
-  //mesh2.rotation.z = Math.PI;
 
   camera.position.set(0,0,430);
   camera.lookAt( scene.position );
@@ -149,16 +139,8 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
 
-  const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
-
-  // mesh.rotation.y += 0.01;
-  // mesh.rotation.x += 0.01;
-  // mesh.rotation.z += 0.01;
   stats.update();
-
-  // rendering actions
-  // mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE
   if (dev && capture) {

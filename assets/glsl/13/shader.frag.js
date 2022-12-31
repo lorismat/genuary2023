@@ -1,14 +1,8 @@
 export default /* glsl */`
 
-// created with thebookofshaders editor
-// commented are the lines used within the editor
-
 varying vec2 vUv;
-uniform vec2 u_resolution;
 uniform float u_time;
-
 uniform sampler2D texture1;
-
 
 // CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -26,8 +20,6 @@ vec2 random2(vec2 st){
   return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-// CREDIT -- Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st) {
   vec2 i = floor(st);
   vec2 f = fract(st);
@@ -54,11 +46,8 @@ float rect(vec2 st, float X, float Y, float W, float H) {
     return R;
 }
 
-
 void main () {
 
-  // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
   // vec3 color = texture2D(texture1, st).rgb;

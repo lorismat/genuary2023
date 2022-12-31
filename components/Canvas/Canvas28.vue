@@ -29,10 +29,6 @@ const deltaStep = 1;
 const deltaStop = 1200;
 const frameRate = 30;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
@@ -65,17 +61,13 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-
   renderer.setClearColor(`hsl(${Math.random()*360}, 30%, 90%)`);
-  // console.log(appColors.white);
 
   inc = 0;
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
-    // pointTexture: { value: new THREE.TextureLoader().load( '/textures/disc.png' ) },
-    // alphaTest: { value: 0.9 }
   }
 
   const particles = 30000;
@@ -87,8 +79,7 @@ function init() {
   const colors = [];
   const sizes = [];
 
-  const color = new THREE.Color();
-  const n = 10, n2 = n / 2; // particles spread in the cube
+  const n = 10;
 
   const arr = [];
   const arrL = 30;
@@ -132,9 +123,7 @@ function init() {
     const zP = radiusP * Math.cos(thetaP);
 
     positionsP.push( xP, yP, zP );
-
     colors.push( 0., 0., 0. );
-
     sizes.push(0.1);
   }
 
@@ -148,7 +137,6 @@ function init() {
     vertexShader, 
     fragmentShader,
     uniforms: uniforms,
-
   } );
   points = new THREE.Points( geometry, material );
 
@@ -176,13 +164,11 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
 
-  const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
 
   inc+= 0.005;
   points.material.uniforms.u_time.value = inc;
-  // points.rotation.y += 0.001;
   
   // RECORDING CYCLE
   if (dev && capture) {
@@ -206,7 +192,6 @@ onMounted(() => {
     };
   }
 
-  console.log(renderer.info);
 })
 </script>
 

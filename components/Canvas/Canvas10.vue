@@ -20,7 +20,6 @@ import fragmentShader from '@/assets/glsl/10/shader.frag';
 
 // sound
 let soundStart, player, analyser, soundData;
-let inc = 0;
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;
@@ -35,15 +34,13 @@ const deltaStep = 0.5;
 const deltaStop = 300;
 const frameRate = 1;
 
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
-
 let stats;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let mesh;
+let inc = 0;
 
 // canvas sizes and record properties
 const props = defineProps({
@@ -74,9 +71,9 @@ function init() {
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
-    attempt: { value: 0},
-    attempt2: { value: 0},
-    attempt3: { value: 0},
+    freq1: { value: 0},
+    freq2: { value: 0},
+    freq3: { value: 0},
   }
   // instancing cube
   const geometry = new THREE.SphereGeometry(10,64*2, 64*2);
@@ -125,12 +122,10 @@ function animate() {
 
   // rendering actions
   if (soundStart) {
-    // console.log(player);
-    // console.log(soundData.getValue());
     mesh.material.uniforms.u_time.value = time;
-    mesh.material.uniforms.attempt.value = soundData.getValue()[4];
-    mesh.material.uniforms.attempt2.value = soundData.getValue()[8];
-    mesh.material.uniforms.attempt3.value = soundData.getValue()[12];
+    mesh.material.uniforms.freq1.value = soundData.getValue()[4];
+    mesh.material.uniforms.freq2.value = soundData.getValue()[8];
+    mesh.material.uniforms.freq3.value = soundData.getValue()[12];
   }
   
   // RECORDING CYCLE

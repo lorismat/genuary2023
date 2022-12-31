@@ -57,7 +57,6 @@ const resizeSmall = computed(() => {
 function init() {
   scene = new THREE.Scene();
 
-
   camera = new THREE.PerspectiveCamera(
     70,
     resizeSmall._value.width / resizeSmall._value.height,
@@ -71,8 +70,8 @@ function init() {
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
   renderer.setClearColor(appColors.black);
 
-
   /* FLOWERS MAIN */
+
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
@@ -99,7 +98,7 @@ function init() {
   const nY = 300, nY2 = nY / 2; 
   const nZ = 300, nZ2 = nZ / 2; 
 
-  // rgb
+  // palette
   const palette = [
     [96, 255, 33],
     [53, 179, 3],
@@ -146,7 +145,7 @@ function init() {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI * 2;
 
-      // spherical coordinates https://en.wikipedia.org/wiki/Spherical_coordinate_system
+      // spherical coordinates
       const x = flowers[i].centerX + r * Math.sin(theta) * Math.cos(phi);
       const y = flowers[i].centerY + r * Math.sin(theta) * Math.sin(phi);
       const z = flowers[i].centerZ + r * Math.cos(theta);
@@ -159,7 +158,6 @@ function init() {
 
       sizes.push(Math.random()*3);
       
-      
     }
 
   }
@@ -170,7 +168,6 @@ function init() {
 
   points = new THREE.Points( geometry, material );
   scene.add( points );
-
 
   /* STEM */
   const stemHeight = 500;
@@ -195,7 +192,7 @@ function init() {
   }
   scene.add( mesh );
 
-  // 2 random positions
+  // 2 random positions for camera moves
   const posInit = flowers[Math.round(Math.random()*flowerNumber)];
   const posEnd = flowers[Math.round(Math.random()*flowerNumber)];
 

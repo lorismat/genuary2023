@@ -3,6 +3,8 @@ varying vec2 vUv;
 varying vec3 pos;
 uniform float u_time;
 
+// random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
+// noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
 float random (vec2 st) {
   return fract(sin(dot(st.xy,
                         vec2(12.9808,78.233)))*
@@ -15,8 +17,6 @@ vec2 random2(vec2 st){
   return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-// CREDIT -- Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st) {
   vec2 i = floor(st);
   vec2 f = fract(st);
@@ -32,8 +32,6 @@ float noise(vec2 st) {
 void main () {
   vUv = uv;
   pos = position;
-  // pos.x += noise(pos.xy*0.9 + u_time/2. ) * 1.;
-  // pos.y += noise(pos.xy*0.9 + u_time/2. ) * 1.;
   pos.z += noise(pos.xy*0.5 + u_time/2. ) / 2.;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }

@@ -34,6 +34,7 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
+
 // extras
 let mesh;
 

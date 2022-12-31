@@ -13,6 +13,8 @@ float rect(vec2 st, float X, float Y, float W, float H) {
     return R;
 }
 
+
+// random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
 float random (vec2 st) {
   return fract(sin(dot(st.xy,
                         vec2(12.9808,78.233)))*
@@ -40,9 +42,6 @@ float noise(vec2 st) {
 }
 
 void main() {
-
-    // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    // st.x *= u_resolution.x/u_resolution.y;
     vec2 st = vUv;
 
     vec3 color = vec3(1.);

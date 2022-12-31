@@ -37,7 +37,7 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
-// extras
+
 let mesh, meshBg;
 
 // canvas sizes and record properties
@@ -73,6 +73,7 @@ function init() {
     u_time: { value: 0 },
     _color: { value: seedColor }
   }
+
   const geometry = new THREE.SphereGeometry( 5, 64*2 );
 	const material = new THREE.ShaderMaterial({
     vertexShader,
@@ -148,6 +149,5 @@ onMounted(() => {
     };
   }
 
-  console.log(renderer.info);
 })
 </script>
