@@ -68,7 +68,8 @@ function init() {
 
   // shaders setup
   const uniforms = {
-    mainSeed: { value: seed }
+    mainSeed: { value: seed }, 
+    u_time: { value: 0}
   }
 
   const geometry = new THREE.PlaneGeometry(12,12);
@@ -105,6 +106,9 @@ function animate() {
   const time = - performance.now() * 0.0005;
   renderer.render(scene, camera);
   stats.update();
+
+  // rendering actions
+  mesh.material.uniforms.u_time.value = time;
   
   // RECORDING CYCLE
   if (dev && capture) {

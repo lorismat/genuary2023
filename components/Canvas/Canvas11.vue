@@ -11,11 +11,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/template/shader.vert';
-import fragmentShader from '@/assets/glsl/template/shader.frag';
+import vertexShader from '@/assets/glsl/11/shader.vert';
+import fragmentShader from '@/assets/glsl/11/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -63,10 +63,19 @@ function init() {
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
   renderer.setClearColor(appColors.white);
 
+  // indexes for shape in the shader
+  // length is a random integer between 5 and 20
+  const arrLength = 5 + Math.round(Math.random() * 15);
+  const idx = Array(arrLength).fill().map((_, i) => Math.random());
+  console.log(idx);
+
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
+    idx: { value: idx},
+    arrLength: { value: arrLength }
   }
+
   // instancing cube
   const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
@@ -78,7 +87,7 @@ function init() {
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
 
-  camera.position.set(0,0,5);
+  camera.position.set(0,0,3.57);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS

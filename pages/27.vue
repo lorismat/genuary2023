@@ -13,7 +13,8 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas27
+        small="700"
         record="png"
       />
     </client-only>

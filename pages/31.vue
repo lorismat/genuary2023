@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#31 Break One Of Your Previous Images"
-      subtitle=""
+      subtitle="Broken Suprematism"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -13,7 +13,8 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas31
+        small="700"
         record="png"
       />
     </client-only>
