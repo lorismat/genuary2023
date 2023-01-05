@@ -63,7 +63,7 @@ function init() {
   const uniforms = {
     u_time: { value: 0 },
   }
-  // instancing cube
+  
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,

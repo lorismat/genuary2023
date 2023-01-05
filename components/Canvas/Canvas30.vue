@@ -11,8 +11,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/template/shader.vert';
-import fragmentShader from '@/assets/glsl/template/shader.frag';
+import vertexShader from '@/assets/glsl/30/shader.vert';
+import fragmentShader from '@/assets/glsl/30/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = true;
@@ -26,10 +26,6 @@ let delta = 0;
 const deltaStep = 0.5;
 const deltaStop = 1;
 const frameRate = 1;
-
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
 
 let stats;
 
@@ -61,17 +57,19 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(appColors.white);
+  renderer.setClearColor("#fff");
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
+    u_seed: { value: Math.random() }
   }
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
+    transparent:true,
     uniforms: uniforms
   })
 

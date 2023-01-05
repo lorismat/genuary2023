@@ -1,7 +1,6 @@
 export default /* glsl */`
 
-// created with thebookofshaders editor
-// commented are the lines used within the editor
+
 
 #define PI 3.14159265359
 

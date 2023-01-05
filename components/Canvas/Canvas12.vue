@@ -64,7 +64,7 @@ function init() {
   const bgColor = new THREE.Color(0xffffff)
   renderer.setClearColor(bgColor.setHSL( seedColor, 0.6, 0.15 ));
 
-  // instancing cube
+  
   const detail = 15;
   const geometry = new THREE.IcosahedronGeometry(10,detail);
 

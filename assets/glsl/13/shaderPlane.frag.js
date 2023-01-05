@@ -37,7 +37,15 @@ void main () {
   // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
-  vec3 color = vec3(st.y, abs(sin(u_time)), 0.5);
+  vec3 color = vec3(1.);
+
+  color = vec3(0., 0.5, 0.6);
+
+  color = mix(
+    random(st) + 0.8 * vec3(1.),
+    color, 
+    step(st.y, 0.41)
+  );
   gl_FragColor = vec4(color, 1.0);
 }
 `;

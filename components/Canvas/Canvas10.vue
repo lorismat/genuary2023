@@ -75,7 +75,7 @@ function init() {
     freq2: { value: 0},
     freq3: { value: 0},
   }
-  // instancing cube
+  
   const geometry = new THREE.SphereGeometry(10,64*2, 64*2);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

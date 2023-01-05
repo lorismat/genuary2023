@@ -75,7 +75,7 @@ function init() {
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
   renderer.setClearColor(colors.white);
 
-  // instancing cube
+  
   const geometry = new THREE.BoxGeometry(1,1,1);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

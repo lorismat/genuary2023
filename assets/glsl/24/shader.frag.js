@@ -1,9 +1,13 @@
 export default /* glsl */`
 
 varying vec2 vUv;
-uniform vec2 u_resolution;
-uniform float u_time;
+varying float t;
 
+uniform vec2 u_resolution;
+uniform float u_seed;
+
+
+// CREDIT 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
 // noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
 
@@ -32,12 +36,39 @@ float noise(vec2 st) {
 }
 
 void main () {
-
-  // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  // st.x *= u_resolution.x/u_resolution.y;
   vec2 st = vUv;
 
-  vec3 color = vec3(st.y, abs(sin(u_time)), 0.5);
+  float factor = 90.;
+  st *= factor;
+
+  vec3 color = vec3(1.);
+
+  vec3 col1 = vec3(
+        random(vec2(u_seed + 0.1 )) , 
+        random(vec2(u_seed + 0.2 )) , 
+        random(vec2(u_seed + 0.3 )) 
+  );
+  vec3 col2 = vec3(
+        random(vec2(u_seed + 0.4 )) , 
+        random(vec2(u_seed + 0.5 )) , 
+        random(vec2(u_seed + 0.6 )) 
+  );
+
+  color = 
+    fract(st.x) > 0.5 && fract(st.y) > 0.5 ? 
+      mix(col1, col2, random(vec2(u_seed + 0.1 ))) :
+    fract(st.x) < 0.5 && fract(st.y) > 0.5 ? 
+      mix(col1, col2, random(vec2(u_seed + 0.2 ))) : 
+    fract(st.x) > 0.5 && fract(st.y) < 0.5 ? 
+      mix(col1, col2, random(vec2(u_seed + 0.3 ))): 
+    mix(col1, col2, random(vec2(u_seed + 0.4 )));
+
+  color = mix(
+    color, 
+    vec3(1.),
+    smoothstep(fract(st.x), fract(st.x) + 0.1, 0.2) + 1. - smoothstep(fract(st.x), fract(st.x)  + 0.1, 0.8)
+  );
+  
   gl_FragColor = vec4(color, 1.0);
 }
 `;

@@ -13,8 +13,9 @@
     />
     
     <client-only>
-      <CanvasTemplate
-        record="png"
+      <CanvasCanvas23
+        
+        record="webm"
       />
     </client-only>
   </div>

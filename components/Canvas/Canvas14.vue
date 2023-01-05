@@ -35,8 +35,6 @@ const appColors = appConfig.colors;
 let stats;
 
 let canvas, scene, renderer, camera;
-
-// extras
 let group;
 
 // canvas sizes and record properties

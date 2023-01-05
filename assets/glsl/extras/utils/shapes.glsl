@@ -60,7 +60,8 @@ color = mix(color, vec3(1.), step(1.-thickness, st.y) + 1. - step(thickness, st.
 
 // PI 3.14159265359
 
-
+vec2 translate = vec2(.5, 0.4);
+st += translate*0.35;   
 
 
 
@@ -110,6 +111,8 @@ void main(){
 
     gl_FragColor = vec4(color,1.0);
 }
+
+float softGrain = clamp(random(st), 0.8, 1.);
 
 
 

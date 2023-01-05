@@ -14,6 +14,7 @@
     
     <client-only>
       <CanvasCanvas13
+        small="700"
         record="png"
       />
     </client-only>

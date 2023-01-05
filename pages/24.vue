@@ -13,7 +13,7 @@
     />
     
     <client-only>
-      <CanvasTemplate
+      <CanvasCanvas24
         record="png"
       />
     </client-only>

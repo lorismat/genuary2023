@@ -67,7 +67,7 @@ function init() {
   const uniforms = {
     u_time: { value: 0 },
   }
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

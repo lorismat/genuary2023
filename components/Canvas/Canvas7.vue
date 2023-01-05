@@ -68,7 +68,7 @@ function init() {
     u_time: { value: 0 },
     texture1: { value: new THREE.TextureLoader().load( "/img/album_ts.png" ) }
   }
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(3,3, 250, 250);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

@@ -79,7 +79,9 @@ void main () {
   vec3 color = beige;
 
   // Scale up the space
-  float gridfactor = 2.;
+
+  // Scale up the space
+  float gridfactor = 1.;
   st *= gridfactor;  
 
   float softGrain = clamp(random(st), 0.8, 1.);
@@ -160,11 +162,11 @@ void main () {
 
   // borders
   // resetcoordinates
-  float thickness = 0.006 * gridfactor;
+  float thickness = 0.002 * gridfactor;
   st = vUv;
   st *= gridfactor;
-  color = mix(color, vec3(0.), step(1.-thickness, fract(st.x)) + 1. - step(thickness, fract(st.x)));
-  color = mix(color, vec3(0.), step(1.-thickness, fract(st.y)) + 1. - step(thickness, fract(st.y)));
+  color = mix(color, vec3(0.2), step(1.-thickness, fract(st.x)) + 1. - step(thickness, fract(st.x)));
+  color = mix(color, vec3(0.2), step(1.-thickness, fract(st.y)) + 1. - step(thickness, fract(st.y)));
 
   gl_FragColor = vec4(color, 1.0);
 }

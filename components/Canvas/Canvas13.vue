@@ -10,9 +10,13 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 
 import vertexShader from '@/assets/glsl/13/shader.vert';
 import fragmentShader from '@/assets/glsl/13/shader.frag';
+
+import vertexShaderPlane from '@/assets/glsl/13/shaderPlane.vert';
+import fragmentShaderPlane from '@/assets/glsl/13/shaderPlane.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = true;
@@ -24,19 +28,13 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 1;
+const deltaStop = 200;
 const frameRate = 1;
-
-// app config
-const appConfig = useAppConfig();
-const appColors = appConfig.colors;
 
 let stats;
 
 let canvas, scene, renderer, camera;
-
-// extras
-let mesh;
+let group, plane;
 
 // canvas sizes and record properties
 const props = defineProps({
@@ -62,25 +60,70 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias : true, canvas});
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(resizeSmall._value.width, resizeSmall._value.height);
-  renderer.setClearColor(appColors.white);
+  renderer.setClearColor("#fff");
 
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
-    texture1: { value: new THREE.TextureLoader().load( "/img/test1.png" ) }
   }
-  // instancing cube
-  const geometry = new THREE.PlaneGeometry(6,6, 250, 250);
-	const material = new THREE.ShaderMaterial({
-    vertexShader,
-    fragmentShader,
+
+  const geometryPlane = new THREE.PlaneGeometry(700,700);
+	const materialPlane = new THREE.ShaderMaterial({
+    vertexShader: vertexShaderPlane,
+    fragmentShader: fragmentShaderPlane,
     uniforms: uniforms
   })
 
-  mesh = new THREE.Mesh( geometry, material );
-  scene.add( mesh );
+  plane = new THREE.Mesh( geometryPlane, materialPlane );
+  scene.add( plane );
+  
+	const material = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: uniforms,
+    side: THREE.DoubleSide
+  })
 
-  camera.position.set(0,0,5);
+  // svg loader
+  const url = '/svg/temple.svg';
+  const loader = new SVGLoader();
+  group = new THREE.Group();
+  loader.load( url, function ( data ) {
+    const paths = data.paths;
+    group.scale.multiplyScalar( 0.5 );
+    group.position.x = -200;
+    group.position.y = 150;
+    group.scale.y *= - 1;
+          
+    for ( let i = 0; i < paths.length; i ++ ) {
+      const path = paths[ i ];
+      for ( let j = 0, jl = path.subPaths.length; j < jl; j ++ ) { 
+        const subPath = path.subPaths[ j ];
+        const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+        if ( geometry ) {
+          const mesh = new THREE.Mesh( geometry, material );
+
+          mesh.rotation.z = Math.PI;
+          mesh.position.x = 400;
+          mesh.position.y = 860;
+          group.add( mesh );
+
+
+          const meshOriginal = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial({
+            color: 0x000000
+          }) );
+          group.add( meshOriginal );
+
+          
+        }
+      }
+    }
+    scene.add( group );
+  })
+
+  
+  
+  camera.position.set(0,0,500);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS
@@ -105,9 +148,11 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  // rendering actions
-  mesh.material.uniforms.u_time.value = time;
-  
+  if (group.children[0] != undefined) {
+    group.children[0].material.uniforms.u_time.value = time;
+    plane.material.uniforms.u_time.value = time;
+  }
+
   // RECORDING CYCLE
   if (dev && capture) {
     delta += deltaStep;

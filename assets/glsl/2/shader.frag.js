@@ -50,7 +50,6 @@ vec3 modified (vec2 st, float position, float thickness, float sign, float noise
 
   float noisyPos = noise(t + st * noiseAmplitude) * noiseAmplitude * 2.;
   noisyPos += noise(t + st * noiseAmplitude / 2.) * noiseAmplitude / 8.;
-  
   position += noisyPos * sign;
 
   vec3 line = vec3(smoothstep(1.- position - smoothFactor, 1.- position, st.y) + 

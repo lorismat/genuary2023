@@ -74,7 +74,7 @@ function init() {
     seed: { value: seed }
   }
   
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(15,15);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

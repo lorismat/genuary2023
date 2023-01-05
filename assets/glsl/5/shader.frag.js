@@ -4,14 +4,7 @@ varying vec2 vUv;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-float rect(vec2 st, float X, float Y, float W, float H) {
-    float R = step(X, st.x) // x
-        - step(1. - Y, 1. - st.y) // Y
-        - step(X + W, st.x) // W depending on X
-        - step(Y + H, st.y) // H depending on Y
-        ;
-    return R;
-}
+
 
 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
@@ -41,29 +34,38 @@ float noise(vec2 st) {
                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
+float rect(vec2 st, float X, float Y, float W, float H) {
+    float R = step(X, st.x) // x
+        - step(1. - Y, 1. - st.y) // Y
+        - step(X + W  , st.x) // W depending on X
+        //- step(Y + H  +noise(st * 30. + u_time) * 1.5, st.y) // H depending on Y
+        //- step(Y + H  +noise(st * 60. + u_time) * 4.5, st.y) // H depending on Y
+        - step(Y + H  +noise(st * 1. * sin(u_time)) * 10.5, st.y) // H depending on Y
+        ;
+    return R;
+}
+
 void main() {
     vec2 st = vUv;
 
     vec3 color = vec3(1.);
+
     vec2 centerMain = vec2(
-        0.5 + noise(floor(st/10.)*10.+u_time/3.), 
-        0.5 + noise(floor(st/10.)*10.+u_time/3.+1.)
+        0.5 + 0.2 *  -sin(floor(st.x/10.)*10.+u_time * 2. + 1.5), 
+        0.5 + 0.2 *  cos(floor(st.x/10.)*10.+u_time * 2. + 1.5)
     );
-    
+
     vec2 centerSecond = vec2(
-        0.5 + noise(floor(st/10.)*10.+u_time/3.) + noise(floor(st/10.)*10.+u_time/3.)/15. , 
-        0.5 + noise(floor(st/10.)*10.+u_time/3.+1.) + noise(floor(st/10.)*10.+u_time/3.)/15.
+        0.5 + noise(st* 3.)*0.1 + 0.2 * sin(floor(st.x/10.)*10.+u_time * 2.), 
+        0.5 + noise(st* 3.)*0.1 + 0.2 * cos(floor(st.x/10.)*10.+u_time * 2.)
     );
     
-    float circleMain = step(0.2, distance(st, centerMain));
-    float circleSecond = step(0.21, distance(st, centerSecond));
+    float circleMain = step(0.3, distance(st, centerMain));
+    float circleSecond = step(0.31, distance(st, centerSecond));
+    
     
     color = mix(color, vec3(0.), 
-        rect(st, floor(st.x*4.)/4. + 0.09, 0.09, 0.07, 0.82)
-       );
-    
-    color = mix(color, vec3(1.), 
-        rect(st, floor(st.x*4.)/4. + 0.1, 0.1, 0.05, 0.8)
+        rect(st, floor(st.x*40.)/40. + 0.009, 0. , 0.07 , 0.5)
        );
     
     color = mix(vec3(0., 0., 0), color, 
@@ -75,22 +77,36 @@ void main() {
        );    
     
     color = mix(color, vec3(0.), 
-        rect(st, floor(st.x*2.)/2. + 0.17, 0.09, 0.07, 0.82)
+        rect(st, floor(st.x*20.)/20., 0.5 , 0.07 , 0.5)
        );
+    
     
     color = mix(color, vec3(1.), 
-        rect(st, floor(st.x*2.)/2. + 0.18, 0.1, 0.05, 0.8)
+        rect(st, floor(st.x*40.)/40., 0.5 , 0.005  , 0.5)
+       );
+        
+    
+    color = mix(color, mix(vec3(0.5,0.,0.), color, circleSecond), 
+        rect(st, floor(st.x*20.)/20. + 0.02, 0., 0.05, 1.)
        );
     
-    // working fine but black
-    color = mix(color, mix(vec3(1.,0.,0.), color, circleSecond), 
-        rect(st, floor(st.x*2.)/2. + 0.18, 0.1, 0.05, 0.8)
+    color = mix(color, mix(vec3(1., 0., 0.)*random(st+u_time) * 0.7, color, circleMain), 
+        rect(st, floor(st.x*20.)/20. + 0.03, 0., 0.05, 1.)
        );
-    
-    // working fine but black
-    color = mix(color, mix(vec3(1.)*random(st+u_time/10000.), color, circleMain), 
-        rect(st, floor(st.x*2.)/2. + 0.18, 0.1, 0.05, 0.8)
-       );
+
+    color = mix(
+      color, 
+      mix(color, color, circleMain),
+      step(0.5 + noise(st * 10. + u_time) * 0.5, circleMain)
+    );
+
+    color = mix(
+      color, 
+      mix(color, color * random(st), circleSecond),
+      step(0.5 + noise(st * 10. + u_time) * 0.5, circleSecond)
+    );
+
+   
     
     gl_FragColor = vec4(color,1.0);
 }

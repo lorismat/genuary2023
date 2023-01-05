@@ -15,7 +15,7 @@ import vertexShader from '@/assets/glsl/19/shader.vert';
 import fragmentShader from '@/assets/glsl/19/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -66,9 +66,9 @@ function init() {
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
-    seed: { value: Math.random() }
+    u_seed: { value: Math.random() }
   }
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,
@@ -79,7 +79,7 @@ function init() {
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
 
-  camera.position.set(0,0,5);
+  camera.position.set(0,0,3.57);
   camera.lookAt( scene.position );
 
   // STATS AND CONTROLS

@@ -1,6 +1,5 @@
 export default /* glsl */`
-// created with thebookofshaders editor
-// commented are the lines used within the editor
+
 
 varying vec2 vUv;
 uniform float u_time;

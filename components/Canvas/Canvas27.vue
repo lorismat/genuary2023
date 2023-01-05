@@ -68,7 +68,7 @@ function init() {
     u_time: { value: 0 },
     u_seed: { value: Math.random() }
   }
-  // instancing cube
+  
   const geometry = new THREE.PlaneGeometry(5,5);
 	const material = new THREE.ShaderMaterial({
     vertexShader,

@@ -1,8 +1,9 @@
 export default /* glsl */`
 
-varying vec2 vUv;
-uniform vec2 u_resolution;
 uniform float u_time;
+uniform float u_seed;
+varying vec3 pos;
+varying float t;
 
 // random(), random2() by Patricio Gonzalez Vivo | thebookofshaders.com
 // noise() by Inigo Quilez | https://www.shadertoy.com/view/XdXGW8
@@ -31,13 +32,13 @@ float noise(vec2 st) {
                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
+varying vec2 vUv;
 void main () {
+  vUv = uv;
+  vec3 pos = position;
+  pos.z = noise( u_seed  + 3. * vUv + u_time * 0.5) * 2.;
+  t = u_time;
 
-  // vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  // st.x *= u_resolution.x/u_resolution.y;
-  vec2 st = vUv;
-
-  vec3 color = vec3(st.y, abs(sin(u_time)), 0.5);
-  gl_FragColor = vec4(color, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
 `;

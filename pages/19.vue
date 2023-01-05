@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent 
       title="#19 Black And White"
-      subtitle="Soulages Style"
+      subtitle="Society"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
@@ -14,6 +14,7 @@
     
     <client-only>
       <CanvasCanvas19
+        small="700"
         record="png"
       />
     </client-only>
