@@ -14,7 +14,7 @@
     
     <client-only>
       <CanvasCanvas9
-        record="png"
+        record="webm"
       />
     </client-only>
   </div>

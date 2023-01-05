@@ -41,11 +41,42 @@ void main () {
 
   color = vec3(0., 0.5, 0.6);
 
+  vec3 colorUp = vec3(1.,0.,0.);
+
+  st.y += noise(st * 40. + u_time * 0.1 ) + 1. * 0.1 * fract(st.x*200.* noise(st + 2.)) * noise(st) * 4.;
+
   color = mix(
-    random(st) + 0.8 * vec3(1.),
-    color, 
-    step(st.y, 0.41)
+    color -0.4, 
+    vec3(0.),
+    random(vec2(floor(st.y * 10.), floor(st.x * 400.))) - step(fract(st.y * 10.), random(vec2(floor(st.y * 1.), floor(st.x * 200.))))
   );
-  gl_FragColor = vec4(color, 1.0);
+  st = vUv;
+
+  colorUp = mix(
+    colorUp,
+    vec3(1.),
+    step(fract(st.y*100.), 0.5)
+  );
+
+
+  colorUp = mix(
+    colorUp,
+    vec3(1.),
+    step(fract(st.x*100.), random(vec2(floor(st.x*100.), floor(st.y*100.))))
+  );
+
+  colorUp = mix(
+    colorUp,
+    vec3(1.),
+    step(0.1, distance(st, vec2(0.8))) 
+  );
+
+  color = mix(
+    color,
+    random(st) + 0.8 * colorUp, 
+    1.-step(st.y, 0.41)
+  );
+  
+  gl_FragColor = vec4(color, 1.);
 }
 `;

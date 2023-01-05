@@ -11,11 +11,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/template/shader.vert';
-import fragmentShader from '@/assets/glsl/template/shader.frag';
+import vertexShader from '@/assets/glsl/21/shader.vert';
+import fragmentShader from '@/assets/glsl/21/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -66,6 +66,7 @@ function init() {
   // shaders setup
   const uniforms = {
     u_time: { value: 0 },
+    u_seed: { value: Math.random() }
   }
   
   const geometry = new THREE.PlaneGeometry(5,5);

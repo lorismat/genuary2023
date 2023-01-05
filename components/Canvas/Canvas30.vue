@@ -15,7 +15,7 @@ import vertexShader from '@/assets/glsl/30/shader.vert';
 import fragmentShader from '@/assets/glsl/30/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes

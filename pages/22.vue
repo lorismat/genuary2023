@@ -13,7 +13,8 @@
     
     <client-only>
       <CanvasCanvas22
-        record="png"
+        record="webm"
+        
       />
     </client-only>
   </div>

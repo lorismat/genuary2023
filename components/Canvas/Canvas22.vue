@@ -24,7 +24,7 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 400;
+const deltaStop = 1000;
 const frameRate = 1;
 
 // app config

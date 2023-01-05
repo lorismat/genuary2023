@@ -43,19 +43,13 @@ float box(in vec2 _st, in vec2 _size){
 
 float brush(in vec2 _st, in vec2 _size){
   _size = vec2(0.5) - _size*0.5;
-
   _size += noise(_st * 100. + u_seed) * 0.004;
-
   _size.y += noise(_st * 5. + u_seed) * 0.01;
-
   _size.y += noise(_st * 1. + 1.1) * 0.07;
-  
   _size.x += noise(_st * 10. + u_seed) * 0.05;
-
   float noisy = noise(_st * 3. + u_seed) * 0.02;
   noisy += noise(_st * 30. + u_seed) * 0.01;
   noisy += noise(_st * 70. + u_seed) * 0.003;
-
   vec2 uv = smoothstep(_size, _size + 0.002,
                       _st + noisy);
   uv *= smoothstep(_size, _size + 0.002,
@@ -63,11 +57,25 @@ float brush(in vec2 _st, in vec2 _size){
   return uv.x*uv.y;
 }
 
+
+float brushGreen(in vec2 _st, in vec2 _size){
+  _size = vec2(0.5) - _size*0.5;
+  
+  _size.x += _st.x - 0.1 > _size.x ? noise(vec2(_st.y) * 100. + u_seed) * 0.03 : noise(vec2(_st.y) * 60. + u_seed) * 0.004;
+
+  vec2 uv = smoothstep(_size, _size + 0.004,
+                      _st);
+                      
+  uv *= smoothstep(_size, _size + 0.004,
+                  vec2(1.0)-_st);
+  return uv.x*uv.y;
+}
+
 float circle(vec2 _st, float radius, float thickness, vec2 pos) {
   vec2 center = pos;
-  float smoothFactor = 0.003;
+  float smoothFactor = 0.001;
   return smoothstep(radius, radius + smoothFactor, distance(_st, center)) 
-    + 1. - smoothstep(radius - thickness, radius - thickness + smoothFactor, distance(_st, center));
+    - smoothstep(radius + thickness, radius + thickness + smoothFactor, distance(_st, center));
 }
 
 void main () {
@@ -92,14 +100,12 @@ void main () {
   vec2 bRT = 1. - smoothstep(1.- thickness - sF, 1. - thickness,st);
 
   // border mask
-  
   color = mix(
     color,
     black,
     box(st, vec2(width + thickness, height + thickness)) * vec3(bLB.x * bLB.y * bRT.x * bRT.y)
   ); 
   
-
   // noisy canvas
   color = mix(
     color, 
@@ -107,17 +113,26 @@ void main () {
     box(st, vec2(width, height)) 
   ); 
 
-  // black brush
+  st -= vec2(0.1);
+  // green brush
   color = mix(
-    
-    vec3(color),
-    beige * random(vec2(st)) * pow((1.4-st.x), 40.),
-    
-    // vec4(vec4(random(vec2(st)) * pow((1.45-st.x), 30.))), 
-    brush(st, vec2(0.5, 0.05))
+    color,
+    mix(
+      color, 
+      vec3(0.9,noise(st + u_seed)* 0.2 + 0.8, noise(st + u_seed)* 0.6 + 0.4),
+      min(0.9, noise(vec2(st.y, st.x)*10. + u_seed ) + pow(1.6-st.x, 90.))
+    ),
+    brushGreen(st + vec2(- 0.1, random(vec2(u_seed+0.1)) * 0.2 + 0.2), vec2(0.2, 0.1 ))  // * noise(vec2(st.y) * 30.) * 1. * pow(1.4-st.x, 40.)
   );
 
-  
+  st = vUv;
+
+  // black brush
+  color = mix(
+    vec3(color),
+    beige * random(vec2(st)) * pow((1.4-st.x), 40.),
+    brush(st, vec2(0.5, 0.05))
+  );
 
   // lines
   float lineThickness = 0.003;
@@ -143,8 +158,8 @@ void main () {
   for(int i=0;i<circleNumbers;++i) {
     float r = 0.04;
     color = mix(
-      black,
-      color, 
+      color,
+      black, 
       circle(st, r, 0.002, 
         vec2( 
           0.3 + 0.4 * random( 1. + vec2(u_seed)) , 
@@ -153,11 +168,6 @@ void main () {
       )
     );
   }
-
-  
-
-  
-  
 
   gl_FragColor = vec4(color, 1.);
 }

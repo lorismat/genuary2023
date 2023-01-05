@@ -19,7 +19,7 @@ import vertexShaderPlane from '@/assets/glsl/13/shaderPlane.vert';
 import fragmentShaderPlane from '@/assets/glsl/13/shaderPlane.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
-const dev = true;
+const dev = false;
 const capture = false;
 
 // record purposes
@@ -85,7 +85,7 @@ function init() {
   })
 
   // svg loader
-  const url = '/svg/temple.svg';
+  const url = '/svg/temple3.svg';
   const loader = new SVGLoader();
   group = new THREE.Group();
   loader.load( url, function ( data ) {
@@ -97,6 +97,32 @@ function init() {
           
     for ( let i = 0; i < paths.length; i ++ ) {
       const path = paths[ i ];
+
+      const shapes = SVGLoader.createShapes( path );
+      console.log(shapes)
+
+      /*
+      const materialFill = new THREE.MeshBasicMaterial( {
+        color: new THREE.Color( 0xff0000 ),
+        opacity: 1,
+        transparent: true,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      } );
+
+      for ( let j = 0; j < shapes.length; j ++ ) {
+        const shape = shapes[ j ];
+
+        const geometry = new THREE.ShapeGeometry( shape );
+        const mesh = new THREE.Mesh( geometry, materialFill );
+
+        group.add( mesh );
+
+      }
+      */
+
+
+
       for ( let j = 0, jl = path.subPaths.length; j < jl; j ++ ) { 
         const subPath = path.subPaths[ j ];
         const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
@@ -104,8 +130,9 @@ function init() {
           const mesh = new THREE.Mesh( geometry, material );
 
           mesh.rotation.z = Math.PI;
-          mesh.position.x = 400;
-          mesh.position.y = 860;
+          mesh.position.x = 550;
+          mesh.position.y = 990;
+          mesh.scale.multiplyScalar( 1.3 );
           group.add( mesh );
 
 
@@ -148,8 +175,8 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  if (group.children[0] != undefined) {
-    group.children[0].material.uniforms.u_time.value = time;
+  if (group.children[group.children.length-2] != undefined) {
+    group.children[group.children.length-2].material.uniforms.u_time.value = time;
     plane.material.uniforms.u_time.value = time;
   }
 
