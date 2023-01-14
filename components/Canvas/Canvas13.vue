@@ -28,8 +28,8 @@ let recordingStop = 0;
 let clock;
 let delta = 0;
 const deltaStep = 0.5;
-const deltaStop = 200;
-const frameRate = 1;
+const deltaStop = 50;
+const frameRate = 30;
 
 let stats;
 

@@ -1,20 +1,20 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#13 Something You’ve Always Wanted To Learn "
-      subtitle="Drawing"
+      title="10x10 #2"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
 
+
     <Entries
-      :prev="`/${Number($route.name) - 1}`"
-      :next="(Number($route.name) < day) ? `/${Number($route.name) + 1}` : undefined"
+      generate="true"
+      :prev="`/collections/10x10/${Number($route.matched[0].components.default.__name) - 1}`"
+      :next="`/collections/10x10/${Number($route.matched[0].components.default.__name) + 1}`"
     />
-    
     <client-only>
-      <CanvasCanvas13
-        small="600"
-        record="gif"
+      <Collections10x10Canvas2 
+        small=700
+        record="png"
       />
     </client-only>
   </div>

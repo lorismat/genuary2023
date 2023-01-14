@@ -31,8 +31,8 @@ float noise(vec2 st) {
 
 void main () {
   vUv = uv;
-  vec3 ver = position;
   pos = (instanceMatrix * vec4(position, 1.0)).xyz;
+  vec3 ver = position;
   ver.x += noise(pos.xy/20. + u_time/2.) * 4.;
   ver.y += noise(pos.xy/20. + u_time/2.) * 4.;
   

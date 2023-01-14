@@ -96,7 +96,6 @@ function init() {
     pointsForSpline.push(new THREE.Vector3((Math.random() * 3 - 1.5) * scalarSpline , (Math.random() * 3 - 1.5) * scalarSpline, (Math.random() * 3 - 1.5) * scalarSpline ))
   }
   const sampleClosedSpline = new THREE.CatmullRomCurve3(pointsForSpline);
-
   sampleClosedSpline.curveType = 'catmullrom';
 	sampleClosedSpline.closed = true;
 

@@ -35,10 +35,8 @@ float noise(vec2 st) {
 void main () {
   vUv = uv;
   pos = position;
-
   pos.x += noise(pos.xy * 0.08 + u_time * 4.) * 20.0 * pow(sin(u_time), 2.);
   pos.y += noise(pos.xy * 0.08 + u_time * 4.) * 20.0 * pow(sin(u_time), 2.);
-
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
 `;

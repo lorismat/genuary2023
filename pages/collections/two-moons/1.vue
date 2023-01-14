@@ -1,19 +1,17 @@
 <template>
   <div>
     <HeaderComponent 
-      title="#6 Steal Like An Artist"
-      subtitle="Distorted artwork from Nicolas Jaar's album Cenizas"
+      title="Two Moons #1"
       :sourceCode="`https://github.com/lorismat/genuary2023/blob/main/components/Canvas/Canvas${Number($route.name)}.vue`"
     />
-
     <Entries
-      :prev="`/${Number($route.name) - 1}`"
-      :next="(Number($route.name) < day) ? `/${Number($route.name) + 1}` : undefined"
+      generate="true"
+      :next="`/collections/two-moons/${Number($route.matched[0].components.default.__name) + 1}`"
     />
-    
     <client-only>
-      <CanvasCanvas6
-        record="gif"
+      <CollectionsTwoMoonsCanvas1 
+        small=700
+        record="png"
       />
     </client-only>
   </div>
@@ -21,7 +19,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "dark",
+  layout: "light",
 });
 
 const day = useState('day');

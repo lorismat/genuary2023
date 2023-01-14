@@ -27,17 +27,50 @@ _All previews will be updated by Jan 31st_
 
 <img src="./public/cover/cov3.png" width="200" height="200" /><img src="./public/cover/cov3_1.png" width="200" height="200" /><img src="./public/cover/cov3_2.png" width="200" height="200" /><img src="./public/cover/cov3_3.png" width="200" height="200" />
 
-4. Intersections
-5. Debug view
-6. Steal Like An Artist
-7. Sample a color palette from your favorite movie/album cover
-8. Signed Distance Functions
-9. Plants
-10. Generative music
-11. Suprematism
-12. Tessellation
-13. Something you’ve always wanted to learn 
-14. Asemic writing - using lines and symbols that look like writing, but do not have any meaning
+#### #4 Intersections
+
+<img src="./public/cover/cov4.png" width="200" height="200" /><img src="./public/cover/cov4_1.png" width="200" height="200" /><img src="./public/cover/cov4_2.png" width="200" height="200" /><img src="./public/cover/cov4_3.png" width="200" height="200" />
+
+#### #5 Debug View
+
+<img src="./public/cover/cov5.png" width="200" height="200" />
+
+#### #6 Steal Like An Artist
+
+<img src="./public/cover/cov6.png" width="200" height="200" /><img src="./public/cover/cov6_1.png" width="200" height="200" /><img src="./public/cover/cov6_2.png" width="200" height="200" /><img src="./public/cover/cov6_3.png" width="200" height="200" />
+
+#### #7 Sample a color palette from your favorite movie/album cover
+
+<img src="./public/cover/cov7.png" width="200" height="200" />
+
+#### #8 Signed Distance Functions
+
+<img src="./public/cover/cov8.png" width="200" height="200" /><img src="./public/cover/cov8_1.png" width="200" height="200" /><img src="./public/cover/cov8_2.png" width="200" height="200" /><img src="./public/cover/cov8_3.png" width="200" height="200" />
+
+#### #9 Plants
+
+<img src="./public/cover/cov9.png" width="200" height="200" /><img src="./public/cover/cov9_1.png" width="200" height="200" /><img src="./public/cover/cov9_2.png" width="200" height="200" /><img src="./public/cover/cov9_3.png" width="200" height="200" />
+
+#### #10 Generative music
+
+<img src="./public/cover/cov10.png" width="200" height="200" /><img src="./public/cover/cov10_1.png" width="200" height="200" /><img src="./public/cover/cov10_2.png" width="200" height="200" /><img src="./public/cover/cov10_3.png" width="200" height="200" />
+
+#### #11 Suprematism
+
+<img src="./public/cover/cov11.png" width="200" height="200" /><img src="./public/cover/cov11_1.png" width="200" height="200" /><img src="./public/cover/cov11_2.png" width="200" height="200" /><img src="./public/cover/cov11_3.png" width="200" height="200" />
+
+#### #12 Tessellation
+
+<img src="./public/cover/cov12.png" width="200" height="200" /><img src="./public/cover/cov12_1.png" width="200" height="200" /><img src="./public/cover/cov12_2.png" width="200" height="200" /><img src="./public/cover/cov12_3.png" width="200" height="200" />
+
+#### #13 Something you’ve always wanted to learn
+
+<img src="./public/cover/cov13.png" width="200" height="200" />
+
+#### #14 Asemic writing 
+
+<img src="./public/cover/cov14.png" width="200" height="200" /><img src="./public/cover/cov14_1.png" width="200" height="200" /><img src="./public/cover/cov14_2.png" width="200" height="200" /><img src="./public/cover/cov14_3.png" width="200" height="200" />
+
 15. Sine waves
 16. Reflection of a reflection
 17. A grid inside a grid inside a grid
