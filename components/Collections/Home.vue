@@ -5,7 +5,7 @@
     </div>
 
     <div class="collections-block">
-      <div><a href="/collections/10x10/1">10x10</a></div>
+      <div><a href="/collections/6x6/1">6x6</a></div>
       <div><a href="/collections/two-moons/1">Two Moons</a></div>
     </div>
     

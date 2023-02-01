@@ -37,12 +37,13 @@ void main () {
   vec2 st = vUv;
 
   // grainy beige
-  vec3 beige = vec3(1., 1., 0.95);
-  beige *= mix(beige, vec3(0.2), random(st) - 0.7);
+  vec3 beige = vec3(1., 1., 1.);
+  beige *= mix(beige, vec3(0.2), random(st) - 0.9);
   vec3 color = beige;
 
   // Scale up the space
-  float gridfactor = 1. + round(random(vec2(u_seed)) * 12.);
+  // float gridfactor = 1. + round(random(vec2(u_seed)) * 12.);
+  float gridfactor = 6.;
   st *= gridfactor;  
 
   vec2 center = vec2(0.5, 0.5);

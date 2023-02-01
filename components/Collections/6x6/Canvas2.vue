@@ -11,8 +11,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import vertexShader from '@/assets/glsl/collections/10x10/1/shader.vert';
-import fragmentShader from '@/assets/glsl/collections/10x10/1/shader.frag';
+import vertexShader from '@/assets/glsl/collections/6x6/2/shader.vert';
+import fragmentShader from '@/assets/glsl/collections/6x6/2/shader.frag';
 
 // dev vs prod, displaying stats/controls/recording accordingly
 const dev = false;

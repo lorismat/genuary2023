@@ -21,7 +21,8 @@
       </div>
       <div class="grid">
         <div  class="grid-item" v-for="p in projects">
-          <a v-if="(p.id <= day)" :href="p.url">
+          <!--<a v-if="(p.id <= day)" :href="p.url">-->
+          <a :href="p.url">
             <img :src="p.img" :alt="p.url">
             <!-- <span class="pic-title">{{ p.title }}</span> -->
           </a>
