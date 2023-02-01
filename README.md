@@ -71,20 +71,70 @@ _All previews will be updated by Jan 31st_
 
 <img src="./public/cover/cov14.png" width="200" height="200" /><img src="./public/cover/cov14_1.png" width="200" height="200" /><img src="./public/cover/cov14_2.png" width="200" height="200" /><img src="./public/cover/cov14_3.png" width="200" height="200" />
 
-15. Sine waves
-16. Reflection of a reflection
-17. A grid inside a grid inside a grid
-18. Definitely not a grid
-19. Black and white
-20. Art Deco
-21. Persian Rug
-22. Shadows
-23. More Moiré
-24. Textile
-25. Yayoi Kusama
-26. My kid could have made that
-27. In the style of Hilma Af Klint
-28. Generative poetry
-29. Maximalism
-30. Minimalism
-31. Deliberately break one of your previous images, take one of your previous works and ruin it.
+#### #15 Sine Waves
+
+<img src="./public/cover/cov15.png" width="200" height="200" /><img src="./public/cover/cov15_1.png" width="200" height="200" /><img src="./public/cover/cov15_2.png" width="200" height="200" /><img src="./public/cover/cov15_3.png" width="200" height="200" />
+
+#### #16 Reflection of a reflection
+
+<img src="./public/cover/cov16.png" width="200" height="200" />
+
+#### #17 A grid inside a grid inside a grid
+
+<img src="./public/cover/cov17.png" width="200" height="200" />
+
+#### #18 Definitely not a grid
+
+<img src="./public/cover/cov18.png" width="200" height="200" /><img src="./public/cover/cov18_1.png" width="200" height="200" /><img src="./public/cover/cov18_2.png" width="200" height="200" /><img src="./public/cover/cov18_3.png" width="200" height="200" />
+
+#### #19 Black and white
+
+<img src="./public/cover/cov19.png" width="200" height="200" /><img src="./public/cover/cov19_1.png" width="200" height="200" /><img src="./public/cover/cov19_2.png" width="200" height="200" /><img src="./public/cover/cov19_3.png" width="200" height="200" />
+
+#### #20 Art Deco
+
+<img src="./public/cover/cov14.png" width="200" height="200" /><img src="./public/cover/cov14_1.png" width="200" height="200" /><img src="./public/cover/cov14_2.png" width="200" height="200" /><img src="./public/cover/cov14_3.png" width="200" height="200" />
+
+#### #21 Persian Rug
+
+<img src="./public/cover/cov20.png" width="200" height="200" /><img src="./public/cover/cov20_1.png" width="200" height="200" /><img src="./public/cover/cov20_2.png" width="200" height="200" /><img src="./public/cover/cov20_3.png" width="200" height="200" />
+
+#### #22 Shadows
+
+<img src="./public/cover/cov21.png" width="200" height="200" />
+
+#### #23 More Moiré
+
+<img src="./public/cover/cov23.png" width="200" height="200" />
+
+#### #24 Textile
+
+<img src="./public/cover/cov24.png" width="200" height="200" /><img src="./public/cover/cov24_1.png" width="200" height="200" /><img src="./public/cover/cov24_2.png" width="200" height="200" /><img src="./public/cover/cov24_3.png" width="200" height="200" />
+
+#### #25 Yayoi Kusama
+
+<img src="./public/cover/cov25.png" width="200" height="200" /><img src="./public/cover/cov25_1.png" width="200" height="200" /><img src="./public/cover/cov25_2.png" width="200" height="200" /><img src="./public/cover/cov25_3.png" width="200" height="200" />
+
+#### #26 My kid could have made that
+
+<img src="./public/cover/cov26.png" width="200" height="200" /><img src="./public/cover/cov26_1.png" width="200" height="200" /><img src="./public/cover/cov26_2.png" width="200" height="200" /><img src="./public/cover/cov26_3.png" width="200" height="200" />
+
+#### #27 In the style of Hilma Af Klint
+
+<img src="./public/cover/cov27.png" width="200" height="200" /><img src="./public/cover/cov27_1.png" width="200" height="200" /><img src="./public/cover/cov27_2.png" width="200" height="200" /><img src="./public/cover/cov27_3.png" width="200" height="200" />
+
+#### #28 Generative poetry
+
+<img src="./public/cover/cov28.png" width="200" height="200" /><img src="./public/cover/cov28_1.png" width="200" height="200" /><img src="./public/cover/cov28_2.png" width="200" height="200" /><img src="./public/cover/cov28_3.png" width="200" height="200" />
+
+#### #29 Maximalism
+
+<img src="./public/cover/cov29.png" width="200" height="200" /><img src="./public/cover/cov29_1.png" width="200" height="200" /><img src="./public/cover/cov29_2.png" width="200" height="200" /><img src="./public/cover/cov29_3.png" width="200" height="200" />
+
+#### #30 Minimalism
+
+<img src="./public/cover/cov30.png" width="200" height="200" />
+
+#### #31 Deliberately break one of your previous images, take one of your previous works and ruin it.
+
+<img src="./public/cover/cov31.png" width="200" height="200" /><img src="./public/cover/cov31_1.png" width="200" height="200" /><img src="./public/cover/cov31_2.png" width="200" height="200" /><img src="./public/cover/cov31_3.png" width="200" height="200" />
