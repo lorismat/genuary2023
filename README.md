@@ -93,15 +93,15 @@ _All previews will be updated by Jan 31st_
 
 #### #20 Art Deco
 
-<img src="./public/cover/cov14.png" width="200" height="200" /><img src="./public/cover/cov14_1.png" width="200" height="200" /><img src="./public/cover/cov14_2.png" width="200" height="200" /><img src="./public/cover/cov14_3.png" width="200" height="200" />
+<img src="./public/cover/cov20.png" width="200" height="200" /><img src="./public/cover/cov20_1.png" width="200" height="200" /><img src="./public/cover/cov20_2.png" width="200" height="200" /><img src="./public/cover/cov20_3.png" width="200" height="200" />
 
 #### #21 Persian Rug
 
-<img src="./public/cover/cov20.png" width="200" height="200" /><img src="./public/cover/cov20_1.png" width="200" height="200" /><img src="./public/cover/cov20_2.png" width="200" height="200" /><img src="./public/cover/cov20_3.png" width="200" height="200" />
+<img src="./public/cover/cov21.png" width="200" height="200" /><img src="./public/cover/cov21_1.png" width="200" height="200" /><img src="./public/cover/cov21_2.png" width="200" height="200" /><img src="./public/cover/cov21_3.png" width="200" height="200" />
 
 #### #22 Shadows
 
-<img src="./public/cover/cov21.png" width="200" height="200" />
+<img src="./public/cover/cov22.png" width="200" height="200" />
 
 #### #23 More Moiré
 
